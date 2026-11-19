@@ -1,0 +1,78 @@
+{
+  "entities": {
+    "PresentationRating": {
+      "title": "PresentationRating",
+      "description": "Audience rating and feedback entry for the Guerrilla Marketing presentation.",
+      "type": "object",
+      "properties": {
+        "authorId": {
+          "type": "string",
+          "description": "Firebase Auth UID of the reviewer.",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "authorName": {
+          "type": "string",
+          "description": "Display name shown publicly with the review.",
+          "minLength": 1,
+          "maxLength": 60
+        },
+        "authorRole": {
+          "type": "string",
+          "description": "Audience role (e.g. محكّم / طالب / مسوّق / صاحب مشروع).",
+          "minLength": 1,
+          "maxLength": 40
+        },
+        "rating": {
+          "type": "number",
+          "description": "Integer star rating from 1 to 5."
+        },
+        "sentiment": {
+          "type": "string",
+          "description": "Overall verdict sentiment on the presentation.",
+          "enum": ["excellent", "good", "needs_improvement"]
+        },
+        "comment": {
+          "type": "string",
+          "description": "Optional public review comment.",
+          "minLength": 0,
+          "maxLength": 400
+        },
+        "isPublic": {
+          "type": "boolean",
+          "description": "Visibility flag allowing public listing of approved reviews."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server creation timestamp."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server last update timestamp."
+        }
+      },
+      "required": [
+        "authorId",
+        "authorName",
+        "authorRole",
+        "rating",
+        "sentiment",
+        "comment",
+        "isPublic",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/presentation_ratings/{ratingId}": {
+      "schema": {
+        "$ref": "#/entities/PresentationRating"
+      },
+      "description": "Audience star ratings and opinions keyed by authenticated reviewer UID."
+    }
+  }
+}

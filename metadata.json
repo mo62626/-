@@ -1,0 +1,6 @@
+{
+  "name": "التسويق الغوريلا — منصة العرض التقديمي",
+  "description": "عرض تقديمي أكاديمي وتطبيقي متكامل في 17 شريحة حول التسويق الغوريلا (Guerrilla Marketing)، الأبعاد الستة، دراسات الحالة العالمية، تقنيات WebAR و FOOH، وبرنامج توليد QR التسويق بالعمولة.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

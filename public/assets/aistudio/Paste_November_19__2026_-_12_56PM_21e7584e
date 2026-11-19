@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>عرض تقديمي احترافي | التسويق الغوريلا (Guerrilla Marketing)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@600;700;800;900&family=Outfit:wght@500;600;700;800&family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --red: #dc2626;
+      --red-b: #ef4444;
+      --red-s: rgba(220, 38, 38, 0.10);
+      --sky: #0284c7;
+      --sky-s: rgba(14, 165, 233, 0.12);
+      --ind: #4f46e5;
+      --ind-s: rgba(79, 70, 229, 0.11);
+      --amb: #d97706;
+      --amb-s: rgba(245, 158, 11, 0.13);
+      --em: #059669;
+      --em-s: rgba(16, 185, 129, 0.12);
+      --ink: #0f172a;
+      --body: #334155;
+      --fh: 'Alexandria', sans-serif;
+      --fb: 'Readex Pro', sans-serif;
+      --fe: 'Outfit', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%; height: 100vh; overflow: hidden;
+      font-family: var(--fb); color: var(--ink);
+      background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 55%, #fef2f2 100%);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .en { font-family: var(--fe); font-weight: 600; direction: ltr; unicode-bidi: embed; }
+
+    /* STAGE 1: FULLSCREEN OPENING VIDEO (NO CIRCLE) */
+    .video-opener-stage {
+      position: fixed; inset: 0; z-index: 6000;
+      width: 100vw; height: 100vh; background: #070a12;
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity 0.55s ease, visibility 0.55s;
+    }
+    .video-opener-stage.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .video-opener-stage video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .video-controls-bar {
+      position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%);
+      z-index: 6010; display: flex; align-items: center; gap: 12px;
+      background: rgba(15, 23, 42, 0.82); backdrop-filter: blur(10px);
+      padding: 10px 20px; border-radius: 999px;
+      border: 1.5px solid rgba(255, 255, 255, 0.25);
+    }
+    .v-btn {
+      background: rgba(255, 255, 255, 0.14); color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      padding: 8px 18px; border-radius: 999px;
+      font-family: var(--fh); font-size: 0.84rem; font-weight: 700;
+      cursor: pointer; transition: all 0.2s ease; white-space: nowrap;
+    }
+    .v-btn:hover { background: rgba(255, 255, 255, 0.28); }
+    .v-btn.primary { background: var(--red); border-color: var(--red); box-shadow: 0 6px 20px rgba(220, 38, 38, 0.45); }
+
+    /* STAGE 2: START COVER */
+    .intro-splash {
+      position: fixed; inset: 0; z-index: 5000;
+      background: radial-gradient(circle at 50% 42%, rgba(239, 68, 68, 0.16), transparent 58%), linear-gradient(135deg, #ffffff 0%, #f8fafc 55%, #fef2f2 100%);
+      display: flex; align-items: center; justify-content: center; padding: 20px;
+      transition: opacity 0.45s ease, transform 0.45s ease, visibility 0.45s;
+    }
+    .intro-splash.hidden { opacity: 0; transform: scale(1.03); visibility: hidden; pointer-events: none; }
+
+    /* ANIMATED RED & WHITE BORDER */
+    .intro-card, .slide-frame-outer {
+      position: relative; border-radius: 28px; padding: 6px; overflow: hidden; background: #ffffff;
+      box-shadow: 0 18px 50px rgba(220, 38, 38, 0.20), 0 8px 24px rgba(15, 23, 42, 0.09);
+    }
+    .intro-card { width: 100%; max-width: 820px; }
+    .intro-card::before, .slide-frame-outer::before {
+      content: ""; position: absolute; top: -65%; left: -65%; width: 230%; height: 230%;
+      background: conic-gradient(from 0deg, #ffffff 0deg, #ffffff 55deg, #ef4444 95deg, #dc2626 145deg, #ffffff 180deg, #ffffff 235deg, #ef4444 275deg, #dc2626 325deg, #ffffff 360deg);
+      animation: spinFrame 4s linear infinite; z-index: 0;
+    }
+    @keyframes spinFrame { to { transform: rotate(360deg); } }
+
+    .intro-inner {
+      position: relative; z-index: 1; background: rgba(255, 255, 255, 0.98);
+      border-radius: 22px; padding: 36px 32px; text-align: center;
+      display: flex; flex-direction: column; align-items: center;
+    }
+
+    .intro-badge, .s-kicker, .pill-tag {
+      display: inline-block; background: var(--red-s); color: var(--red);
+      font-family: var(--fh); font-weight: 700; font-size: 0.74rem;
+      padding: 4px 13px; border-radius: 999px; margin-bottom: 8px;
+    }
+    .pill-tag { border-radius: 8px; font-size: 0.71rem; }
+
+    .intro-title { font-family: var(--fh); font-size: clamp(1.7rem, 3vw, 2.4rem); font-weight: 900; line-height: 1.3; margin-bottom: 12px; }
+    .intro-sub { font-size: 0.95rem; color: var(--body); max-width: 650px; line-height: 1.75; margin-bottom: 24px; }
+
+    .enter-btn {
+      background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+      color: #ffffff; border: none; padding: 14px 38px; border-radius: 999px;
+      font-family: var(--fh); font-size: 1.04rem; font-weight: 800; cursor: pointer;
+      box-shadow: 0 12px 28px rgba(220, 38, 38, 0.34); transition: transform 0.2s ease;
+    }
+    .enter-btn:hover { transform: translateY(-2px); }
+
+    /* VIEWPORT & SLIDES */
+    .ppt-progress { position: fixed; top: 0; left: 0; right: 0; height: 5px; background: rgba(220, 38, 38, 0.14); z-index: 2000; }
+    .ppt-progress-bar { height: 100%; width: 5.88%; background: linear-gradient(90deg, #dc2626, #ef4444, #dc2626); transition: width 0.35s ease; }
+
+    .viewport { width: 100vw; height: 100vh; padding: 14px 22px 64px; display: flex; align-items: center; justify-content: center; }
+    .slide-frame-outer { width: 100%; max-width: 1460px; height: 100%; display: flex; }
+
+    .slide-canvas {
+      position: relative; z-index: 1; width: 100%; height: 100%;
+      background: #ffffff; border-radius: 22px;
+      padding: 18px 26px; display: flex; flex-direction: column; overflow: hidden;
+    }
+
+    .slide-bg-layer {
+      position: absolute; inset: 0; z-index: 0;
+      background-image: url('BG-SLIDE.jpg'), url('BG-SLIDE.png'), url('BG-SLIDE.webp');
+      background-size: cover; background-position: center;
+      opacity: 0.42; pointer-events: none; overflow: hidden;
+    }
+    .slide-bg-layer video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .slide-content-wrap { position: relative; z-index: 1; width: 100%; height: 100%; display: flex; flex-direction: column; overflow: hidden; }
+    .slide-enter { animation: slideIn 0.35s ease; }
+    @keyframes slideIn { from { opacity: 0.72; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
+
+    .s-header {
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 14px;
+      margin-bottom: 11px; border-bottom: 2px solid rgba(220, 38, 38, 0.18); flex-shrink: 0;
+      background: rgba(255, 255, 255, 0.88); backdrop-filter: blur(5px); border-radius: 12px; padding: 7px 12px 9px;
+    }
+    .s-title { font-family: var(--fh); font-size: clamp(1.12rem, 1.75vw, 1.62rem); font-weight: 800; line-height: 1.35; }
+    .s-subtitle { font-size: 0.84rem; color: var(--body); margin-top: 2px; line-height: 1.56; }
+    .s-badge-en {
+      background: rgba(255, 255, 255, 0.96); border: 1.5px solid rgba(220, 38, 38, 0.32); color: var(--red);
+      padding: 5px 12px; border-radius: 10px; font-family: var(--fe); font-size: 0.71rem; font-weight: 700; white-space: nowrap;
+    }
+
+    .s-body { flex: 1; overflow-y: auto; padding-left: 6px; scrollbar-width: thin; scrollbar-color: rgba(220, 38, 38, 0.35) transparent; }
+    .s-body::-webkit-scrollbar { width: 5px; }
+    .s-body::-webkit-scrollbar-thumb { background: rgba(220, 38, 38, 0.4); border-radius: 10px; }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 13px; }
+    @media (max-width: 1024px) { .grid-3 { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 768px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } .slide-canvas { padding: 14px; } }
+
+    .card {
+      background: rgba(255, 255, 255, 0.94); backdrop-filter: blur(6px);
+      border: 1px solid rgba(148, 163, 184, 0.32);
+      border-radius: 16px; padding: 13px 15px; box-shadow: 0 5px 16px rgba(15, 23, 42, 0.05);
+    }
+    .card.red { border-top: 4px solid var(--red-b); }
+    .card.sky { border-top: 4px solid #0ea5e9; }
+    .card.ind { border-top: 4px solid var(--ind); }
+    .card.amb { border-top: 4px solid #f59e0b; }
+    .card.em { border-top: 4px solid #10b981; }
+
+    .card h3 { font-family: var(--fh); font-size: 0.93rem; font-weight: 700; margin-bottom: 5px; line-height: 1.4; }
+    .card p { font-size: 0.82rem; color: var(--body); line-height: 1.64; margin-bottom: 6px; }
+
+    .note-box { background: rgba(254, 242, 242, 0.95); border-right: 3.5px solid var(--red-b); padding: 8px 11px; border-radius: 10px; font-size: 0.79rem; line-height: 1.58; margin-top: 6px; }
+    .note-box strong { color: var(--red); font-family: var(--fh); }
+
+    /* PURE CLEAN IMAGE FRAME (NO CAPTIONS / NO LABELS BELOW) */
+    .visual-figure { width: 100%; border-radius: 13px; overflow: hidden; margin-bottom: 9px; border: 1.5px solid #e2e8f0; background: #f8fafc; }
+    .visual-frame { position: relative; width: 100%; height: 158px; overflow: hidden; }
+    .visual-figure.tall .visual-frame { height: 285px; }
+    .visual-figure.compact .visual-frame { height: 120px; }
+    .visual-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .xray-dot {
+      position: absolute; width: 26px; height: 26px; border-radius: 50%;
+      background: var(--red); color: #fff; font-weight: 800; font-size: 0.78rem;
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
+      border: 2px solid #fff; box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.35); z-index: 3;
+    }
+
+    /* TABLES, TABS & CONTROLS */
+    .ppt-table { width: 100%; border-collapse: collapse; font-size: 0.79rem; background: rgba(255,255,255,0.96); border-radius: 11px; overflow: hidden; border: 1px solid #e2e8f0; }
+    .ppt-table th { background: var(--red-s); color: var(--red); font-family: var(--fh); padding: 7px 10px; text-align: right; }
+    .ppt-table td { padding: 6px 10px; border-bottom: 1px solid #f1f5f9; color: var(--body); line-height: 1.48; }
+
+    .tab-row { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 10px; }
+    .tab-btn { background: rgba(255,255,255,0.95); border: 1px solid #cbd5e1; color: var(--body); padding: 6px 13px; border-radius: 999px; font-family: var(--fh); font-weight: 600; font-size: 0.76rem; cursor: pointer; }
+    .tab-btn.active, .tab-btn:hover { background: var(--red); color: #fff; border-color: var(--red); }
+
+    .ppt-input, .ppt-select { width: 100%; padding: 8px 10px; border-radius: 9px; border: 1.5px solid #cbd5e1; background: #fff; font-family: var(--fb); font-size: 0.82rem; }
+    .action-btn { background: var(--red); color: #fff; border: none; padding: 8px 14px; border-radius: 9px; font-family: var(--fh); font-size: 0.79rem; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+    .action-btn:hover { background: #b91c1c; }
+    .action-btn.sec { background: var(--ink); }
+
+    /* PRESENTER DOCK */
+    .ppt-dock {
+      position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); z-index: 2500;
+      background: rgba(255, 255, 255, 0.97); border: 2px solid var(--red-b);
+      box-shadow: 0 10px 26px rgba(220, 38, 38, 0.18); border-radius: 999px;
+      padding: 5px 14px; display: flex; align-items: center; gap: 7px; max-width: 96vw;
+    }
+    .dock-btn { background: transparent; border: none; color: var(--ink); padding: 6px 11px; border-radius: 999px; font-family: var(--fh); font-size: 0.76rem; font-weight: 700; cursor: pointer; white-space: nowrap; }
+    .dock-btn:hover { background: var(--red-s); color: var(--red); }
+    .dock-btn.primary { background: var(--red); color: #fff; }
+    .dock-counter { font-family: var(--fe); font-weight: 800; font-size: 0.84rem; color: var(--red); padding: 0 7px; cursor: pointer; }
+
+    .modal-overlay { position: fixed; inset: 0; z-index: 4000; background: rgba(15, 23, 42, 0.72); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; padding: 20px; }
+    .modal-overlay.open { display: flex; }
+    .modal-box { width: 100%; max-width: 1240px; max-height: 88vh; background: #fff; border: 3px solid var(--red-b); border-radius: 22px; padding: 22px; display: flex; flex-direction: column; overflow: hidden; }
+    .sorter-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 11px; overflow-y: auto; padding: 5px; margin-top: 12px; }
+    @media (max-width: 900px) { .sorter-grid { grid-template-columns: repeat(2, 1fr); } }
+    .sorter-card { background: #f8fafc; border: 2px solid transparent; border-radius: 13px; padding: 9px; cursor: pointer; }
+    .sorter-card:hover, .sorter-card.active { border-color: var(--red); background: #fef2f2; }
+    .sorter-thumb { width: 100%; height: 64px; border-radius: 8px; overflow: hidden; margin-bottom: 5px; background: #e2e8f0; }
+    .sorter-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  </style>
+</head>
+<body>
+
+  <!-- STAGE 1: FULLSCREEN OPENING VIDEO (NO CIRCLE) -->
+  <div class="video-opener-stage" id="videoOpenerStage">
+    <video id="fullscreenIntroVideo" src="LOGO-INTRO.mp4" playsinline onended="finishIntroVideo()" onerror="finishIntroVideo()"></video>
+    <div class="video-controls-bar">
+      <button class="v-btn" id="unmuteOpenerBtn" onclick="toggleOpenerAudio()">🔊 تشغيل الصوت</button>
+      <button class="v-btn primary" onclick="finishIntroVideo()">تخطي إلى بدء العرض ←</button>
+    </div>
+  </div>
+
+  <!-- STAGE 2: START COVER -->
+  <div class="intro-splash" id="introSplash">
+    <div class="intro-card">
+      <div class="intro-inner">
+        <div class="intro-badge">عرض تقديمي أكاديمي وتطبيقي متكامل • 17 شريحة</div>
+        <h1 class="intro-title">التسويق الغوريلا (<span class="en">Guerrilla Marketing</span>)</h1>
+        <p class="intro-sub">
+          مرجع شامل ومرتب في 5 محاور: الجذور التاريخية، الأبعاد السياقية الستة، المزيج السباعي، دراسات الحالة العالمية بالأرقام، التقنيات الحديثة وخطوات صناعة الواقع المعزز (<span class="en">WebAR</span>) خطوة بخطوة، برنامج توليد <span class="en">QR</span> التسويق بالعمولة، والتطبيق العملي في مدينة المنصورة.
+        </p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+          <button class="enter-btn" onclick="enterPresentation()">ابدأ تقديم البريزنتيشن ←</button>
+          <button class="v-btn" style="color:var(--ink);border-color:#cbd5e1;background:#f8fafc" onclick="replayOpenerVideo()">🎬 إعادة الفيديو الافتتاحي</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top Progress Bar -->
+  <div class="ppt-progress"><div class="ppt-progress-bar" id="pptBar"></div></div>
+
+  <!-- Main Presentation Viewport -->
+  <main class="viewport">
+    <div class="slide-frame-outer">
+      <section class="slide-canvas" id="slideCanvas">
+        <div class="slide-bg-layer">
+          <video id="bgLoopVideo" src="BG-SLIDE.mp4" autoplay loop muted playsinline onerror="this.style.display='none'"></video>
+        </div>
+        <div class="slide-content-wrap" id="slideContentWrap"></div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Presenter Navigation Dock -->
+  <nav class="ppt-dock" aria-label="التحكم في العرض">
+    <button class="dock-btn" onclick="prevSlide()">→ السابق</button>
+    <span class="dock-counter" id="dockCounter" onclick="toggleSorter()">01 / 17</span>
+    <button class="dock-btn primary" onclick="nextSlide()">التالي ←</button>
+    <span style="width:1px; height:18px; background:#cbd5e1;"></span>
+    <button class="dock-btn" onclick="replayOpenerVideo()">🎬 الافتتاحية</button>
+    <button class="dock-btn" onclick="toggleSorter()">⊞ كل الشرائح (17)</button>
+    <button class="dock-btn" onclick="toggleFullscreen()">⛶ ملء الشاشة</button>
+  </nav>
+
+  <!-- Slide Sorter Modal -->
+  <div class="modal-overlay" id="sorterModal" onclick="if(event.target.id==='sorterModal') toggleSorter()">
+    <div class="modal-box">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h2 style="font-family:var(--fh); font-size:1.08rem;">⊞ خريطة الشرائح الكاملة المرتبة (17 شريحة • <span class="en">Slide Sorter</span>)</h2>
+        <button class="dock-btn primary" onclick="toggleSorter()">✕ إغلاق</button>
+      </div>
+      <div class="sorter-grid" id="sorterGrid"></div>
+    </div>
+  </div>
+
+  <script>
+    /* =========================================================================
+       1. REAL ISO/IEC 18004 QR CODE GENERATOR (100% SCANNABLE BY ANY PHONE)
+       ========================================================================= */
+    const QRGen = (() => {
+      const EXP = new Uint8Array(512), LOG = new Uint8Array(256);
+      let x = 1;
+      for (let i = 0; i < 255; i++) {
+        EXP[i] = x; LOG[x] = i;
+        x <<= 1; if (x & 0x100) x ^= 0x11d;
+      }
+      for (let i = 255; i < 512; i++) EXP[i] = EXP[i - 255];
+
+      function gfMul(a, b) { return (a === 0 || b === 0) ? 0 : EXP[LOG[a] + LOG[b]]; }
+      function rsGenPoly(deg) {
+        let p = [1];
+        for (let i = 0; i < deg; i++) {
+          const next = new Array(p.length + 1).fill(0);
+          for (let j = 0; j < p.length; j++) { next[j] ^= p[j]; next[j + 1] ^= gfMul(p[j], EXP[i]); }
+          p = next;
+        }
+        return p;
+      }
+      function rsEncode(data, eccLen) {
+        const gen = rsGenPoly(eccLen);
+        const res = new Uint8Array(data.length + eccLen);
+        res.set(data);
+        for (let i = 0; i < data.length; i++) {
+          const coef = res[i];
+          if (coef !== 0) for (let j = 0; j < gen.length; j++) res[i + j] ^= gfMul(gen[j], coef);
+        }
+        return res.slice(data.length);
+      }
+
+      const VERS = [
+        null,
+        [1, 21, 19, 7, 1, [], 0],
+        [2, 25, 34, 10, 1, [6, 18], 0],
+        [3, 29, 55, 15, 1, [6, 22], 0],
+        [4, 33, 80, 20, 1, [6, 26], 0],
+        [5, 37, 108, 26, 1, [6, 30], 0],
+        [6, 41, 136, 18, 2, [6, 34], 0],
+        [7, 45, 156, 20, 2, [6, 22, 38], 0x07c94],
+        [8, 49, 194, 24, 2, [6, 24, 42], 0x085bc]
+      ];
+
+      function drawToCanvas(canvas, text) {
+        if (!canvas) return;
+        const bytes = new TextEncoder().encode(text);
+        let v = 1;
+        while (v <= 8 && VERS[v][2] < bytes.length + 2) v++;
+        if (v > 8) v = 8;
+        const [, size, totalData, eccLen, blocks, align, verBits] = VERS[v];
+        const payload = bytes.slice(0, totalData - 2);
+
+        const bits = [];
+        const pushBits = (val, len) => { for (let i = len - 1; i >= 0; i--) bits.push((val >> i) & 1); };
+        pushBits(0b0100, 4); pushBits(payload.length, 8);
+        payload.forEach(b => pushBits(b, 8));
+        pushBits(0, Math.min(4, totalData * 8 - bits.length));
+        while (bits.length % 8 !== 0) bits.push(0);
+        const dataBytes = [];
+        for (let i = 0; i < bits.length; i += 8) {
+          let b = 0; for (let j = 0; j < 8; j++) b = (b << 1) | bits[i + j];
+          dataBytes.push(b);
+        }
+        const pads = [0xec, 0x11]; let pi = 0;
+        while (dataBytes.length < totalData) { dataBytes.push(pads[pi % 2]); pi++; }
+
+        const bSize = Math.floor(totalData / blocks);
+        const dBlocks = [], eBlocks = [];
+        for (let b = 0; b < blocks; b++) {
+          const slice = new Uint8Array(dataBytes.slice(b * bSize, (b + 1) * bSize));
+          dBlocks.push(slice); eBlocks.push(rsEncode(slice, eccLen));
+        }
+        const finalBytes = [];
+        for (let i = 0; i < bSize; i++) for (let b = 0; b < blocks; b++) finalBytes.push(dBlocks[b][i]);
+        for (let i = 0; i < eccLen; i++) for (let b = 0; b < blocks; b++) finalBytes.push(eBlocks[b][i]);
+
+        const M = Array.from({ length: size }, () => new Uint8Array(size));
+        const setF = (r, c, dark) => { if (r >= 0 && r < size && c >= 0 && c < size) M[r][c] = dark ? 2 : 1; };
+        const finder = (r0, c0) => {
+          for (let r = -1; r <= 7; r++) for (let c = -1; c <= 7; c++) {
+            const dark = (r >= 0 && r <= 6 && c >= 0 && c <= 6) && (r === 0 || r === 6 || c === 0 || c === 6 || (r >= 2 && r <= 4 && c >= 2 && c <= 4));
+            setF(r0 + r, c0 + c, dark);
+          }
+        };
+        finder(0, 0); finder(0, size - 7); finder(size - 7, 0);
+        for (let i = 8; i < size - 8; i++) { setF(6, i, i % 2 === 0); setF(i, 6, i % 2 === 0); }
+        for (const r of align) for (const c of align) {
+          if (M[r][c] !== 0) continue;
+          for (let dr = -2; dr <= 2; dr++) for (let dc = -2; dc <= 2; dc++) setF(r + dr, c + dc, Math.abs(dr) === 2 || Math.abs(dc) === 2 || (dr === 0 && dc === 0));
+        }
+        for (let i = 0; i < 9; i++) { if (M[8][i] === 0) M[8][i] = 1; if (M[i][8] === 0) M[i][8] = 1; }
+        for (let i = 0; i < 8; i++) { if (M[8][size - 1 - i] === 0) M[8][size - 1 - i] = 1; if (M[size - 1 - i][8] === 0) M[size - 1 - i][8] = 1; }
+        setF(size - 8, 8, true);
+        if (verBits) {
+          for (let i = 0; i < 18; i++) {
+            const dark = ((verBits >> i) & 1) === 1;
+            const a = Math.floor(i / 3), b = i % 3;
+            setF(a, size - 11 + b, dark); setF(size - 11 + b, a, dark);
+          }
+        }
+        const allBits = [];
+        finalBytes.forEach(b => { for (let i = 7; i >= 0; i--) allBits.push((b >> i) & 1); });
+        let bi = 0, up = true;
+        for (let col = size - 1; col > 0; col -= 2) {
+          if (col === 6) col--;
+          for (let i = 0; i < size; i++) {
+            const r = up ? (size - 1 - i) : i;
+            for (let dc = 0; dc < 2; dc++) {
+              const c = col - dc;
+              if (M[r][c] === 0) {
+                const bit = bi < allBits.length ? allBits[bi++] : 0;
+                const masked = bit ^ (((r + c) % 2 === 0) ? 1 : 0);
+                M[r][c] = masked ? 4 : 3;
+              }
+            }
+          }
+          up = !up;
+        }
+        const fmt = 0x77c4;
+        const fCoords1 = [[0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[7,8],[8,8],[8,7],[8,5],[8,4],[8,3],[8,2],[8,1],[8,0]];
+        const fCoords2 = [[8,size-1],[8,size-2],[8,size-3],[8,size-4],[8,size-5],[8,size-6],[8,size-7],[8,size-8],[size-7,8],[size-6,8],[size-5,8],[size-4,8],[size-3,8],[size-2,8],[size-1,8]];
+        for (let i = 0; i < 15; i++) {
+          const dark = ((fmt >> i) & 1) === 1;
+          setF(fCoords1[i][0], fCoords1[i][1], dark); setF(fCoords2[i][0], fCoords2[i][1], dark);
+        }
+        const quiet = 3, total = size + quiet * 2;
+        const scale = Math.max(4, Math.floor(210 / total));
+        canvas.width = total * scale; canvas.height = total * scale;
+        const ctx = canvas.getContext("2d");
+        ctx.fillStyle = "#ffffff"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#0f172a";
+        for (let r = 0; r < size; r++) for (let c = 0; c < size; c++) if (M[r][c] === 2 || M[r][c] === 4) ctx.fillRect((c + quiet) * scale, (r + quiet) * scale, scale, scale);
+      }
+      return { drawToCanvas };
+    })();
+
+    /* =========================================================================
+       2. PURE IMAGE LOADER (ZERO CAPTIONS / ZERO LABELS UNDER IMAGES)
+       ========================================================================= */
+    function pad2(n) { return String(n).padStart(2, "0"); }
+    function getBaseName(n) { return "IMG-" + pad2(n); }
+    function getCandidates(base) {
+      return [base + ".jpg", base + ".png", base + ".webp", base + ".jpeg", base + ".avif", base + ".jpg.png", base + ".jpg.webp", base + ".png.png"];
+    }
+    function makePlaceholder(n) {
+      const c = document.createElement("canvas"); c.width = 800; c.height = 450;
+      const ctx = c.getContext("2d");
+      const g = ctx.createLinearGradient(0, 0, 800, 450);
+      g.addColorStop(0, "#ffffff"); g.addColorStop(1, "#fee2e2");
+      ctx.fillStyle = g; ctx.fillRect(0, 0, 800, 450);
+      ctx.strokeStyle = "#dc2626"; ctx.lineWidth = 4; ctx.setLineDash([12, 8]);
+      ctx.strokeRect(18, 18, 764, 414); ctx.setLineDash([]);
+      ctx.fillStyle = "#dc2626"; ctx.beginPath(); ctx.roundRect(325, 195, 150, 46, 23); ctx.fill();
+      ctx.fillStyle = "#ffffff"; ctx.font = "bold 22px Outfit, sans-serif"; ctx.textAlign = "center";
+      ctx.fillText(getBaseName(n), 400, 225);
+      return c.toDataURL("image/png");
+    }
+    function handleLocalImgError(imgEl, n) {
+      const list = getCandidates(getBaseName(n));
+      const idx = parseInt(imgEl.dataset.tryIdx || "0", 10) + 1;
+      if (idx < list.length) { imgEl.dataset.tryIdx = String(idx); imgEl.src = list[idx]; }
+      else { imgEl.onerror = null; imgEl.src = makePlaceholder(n); }
+    }
+    function renderFigure(n, mode = "", extraHtml = "") {
+      return `<figure class="visual-figure ${mode}"><div class="visual-frame"><img src="${getBaseName(n)}.jpg" data-try-idx="0" onerror="handleLocalImgError(this, ${n})" alt="" />${extraHtml}</div></figure>`;
+    }
+
+    /* =========================================================================
+       3. GLOSSARY DATA (28 DOCUMENTED TERMS)
+       ========================================================================= */
+    const glossaryData = [
+      { en: "Guerrilla Marketing", ar: "التسويق الغوريلا (التسويق غير التقليدي الخاطف)", def: "منهجية ابتكرها جاي كونراد ليفينسون عام 1984 تعتمد على الخيال والوقت والطاقة لاختراق روتين المستهلك بمفاجأة ذكية بأقل تكلفة.", mean: "تطبيق عملي: فكرة ذكية في الشارع أو الموبايل تجبر المارة على التوقف وتصويرها ونشرها مجاناً." },
+      { en: "Ambient Marketing", ar: "التسويق المحيطي (إعلانات البيئة اليومية)", def: "دمج الرسالة الإعلانية داخل العناصر المادية الموجودة أصلاً في البيئة المحيطة بالجمهور يومياً مثل مقاعد الحدائق وسلالم المترو.", mean: "مثال موثق: طلاء مقعد حديقة في أمستردام (2012) على شكل شوكولاتة كيت كات." },
+      { en: "Street Marketing", ar: "تسويق الشارع والميادين المباشر", def: "تنفيذ عروض حية ومجسمات ثلاثية الأبعاد مباشرة في الشوارع والميادين ومحطات النقل لخلق احتكاك مباشر مع الجمهور.", mean: "تطبيق عملي: مجسم تفاعلي في شارع المشاية السفلية بالمنصورة يجذب المارة للتصوير." },
+      { en: "Experiential Marketing", ar: "التسويق التجريبي (الانغماس الحسي)", def: "إشراك حواس المستهلك في تجربة تفاعلية حية تجعله يعيش قصة العلامة التجارية بنفسه.", mean: "مثال موثق: شقة إيكيا المفروشة داخل محطة مترو أوبير بباريس (مارس 2014)." },
+      { en: "Ambush Marketing", ar: "تسويق الكمائن (الخطف الترويجي للأضواء)", def: "استغلال الزخم الجماهيري والإعلامي لحدث رياضي أو ثقافي ضخم دون دفع رسوم الرعاية الرسمية.", mean: "مثال موثق: مركز نايكي الملاصق لأولمبياد أتلانتا 1996 ورفع إيراداتها 36%." },
+      { en: "Stealth Marketing", ar: "التسويق الخفي أو المتسلل", def: "الترويج للمنتج وسط الجمهور في مواقف حياتية طبيعية دون أن يدرك المستهلك في البداية أنه يشاهد إعلاناً.", mean: "مثال موثق: 60 ممثلاً لسوني إريكسون في نيويورك (2002) يتظاهرون كسياح ويطلبون تصويرهم بالهاتف." },
+      { en: "Buzz Marketing", ar: "تسويق الضجة وإثارة الحوار", def: "هندسة حدث استثنائي مثير للفضول يدفع الناس للحديث عنه وتناقله في حواراتهم اليومية وعبر المنصات.", mean: "تطبيق عملي: صناعة موقف مدهش يجعل طلاب الجامعة يتحدثون عنه طوال الأسبوع." },
+      { en: "Viral Marketing", ar: "التسويق الفيروسي (الانتشار المتضاعف)", def: "تصميم محتوى أو تجربة بصرية ذات قابلية عالية للمشاركة بحيث ينتشر ذاتياً بسرعة متضاعفة.", mean: "مثال موثق: حملة Will It Blend (2006) التي رفعت مبيعات خلاطات Blendtec بنسبة 700%." },
+      { en: "Flash Mob", ar: "التجمع المفاجئ الخاطف", def: "تجمع مفاجئ ومنسق مسبقاً لمجموعة كبيرة من المؤدين في مكان عام مزدحم لتقديم عرض فني غير متوقع.", mean: "مثال موثق: 350 راقصاً لـ T-Mobile في محطة ليفربول ستريت بلندن (يناير 2009)." },
+      { en: "Reverse Graffiti", ar: "الجرافيتي العكسي (الإعلان بالتنظيف البيئي)", def: "تنظيف الأوساخ والأتربة عن الأرصفة باستخدام الماء المضغوط وقوالب مفرغة لإظهار شعار نظيف دون دهانات.", mean: "تطبيق عملي: رسم شعار المطعم على رصيف مترب بالماء فقط دون مخالفة بيئية." },
+      { en: "Guerrilla Projections", ar: "الإسقاط الضوئي الخاطف على المباني", def: "عرض إعلانات ضوئية عملاقة على واجهات المباني ليلاً باستخدام أجهزة إسقاط ضوئي عالية القوة.", mean: "تطبيق عملي: تسليط بروجيكتور ليلاً على واجهة مبنى بارز دون ترك أي أثر مادي." },
+      { en: "Astroturfing", ar: "التأييد الشعبي المصطنع (عالي المخاطرة)", def: "إظهار حملة مدفوعة وكأنها حركة عفوية من الجمهور العادي، وهو أسلوب يسبب أزمة ثقة إذا انكشف.", mean: "تنبيه: يجب تجنبه والاعتماد على التجارب الحقيقية الصادقة." },
+      { en: "Fake Out-Of-Home (FOOH)", ar: "الإعلانات الخارجية الوهمية بتقنية الجرافيك ثلاثي الأبعاد", def: "دمج مجسمات ثلاثية الأبعاد عملاقة بتقنية CGI داخل فيديوهات تبدو مصورة في شوارع حقيقية.", mean: "تطبيق عملي: فيديو علبة برجر عملاقة تفتح فوق مبنى بشارع المشاية السفلية بالمنصورة." },
+      { en: "Computer-Generated Imagery (CGI)", ar: "الصور والمجسمات المُولَّدة بالحاسوب ثلاثية الأبعاد", def: "تقنية رقمية لإنشاء مجسمات ثلاثية الأبعاد ودمجها بواقعية تامة مع الإضاءة والظلال في المشاهد المصورة.", mean: "تطبيق عملي: تصميم مجسمات طعام عملاقة على الكمبيوتر وتركيبها فوق المباني." },
+      { en: "Phygital Marketing", ar: "التسويق الهجين (الدمج بين الواقع والرقمي)", def: "ربط التجربة المادية الملموسة في الشارع بالتفاعل الرقمي الفوري عبر الهاتف الذكي.", mean: "تطبيق عملي: بطاقة فندق ملموسة تفتح شاطئاً ثلاثي الأبعاد على شاشة الموبايل." },
+      { en: "Web-Based AR (WebAR)", ar: "الواقع المعزز القائم على متصفح الويب", def: "تشغيل تجارب الواقع المعزز ثلاثية الأبعاد مباشرة عبر متصفح الهاتف بمجرد مسح كود QR دون تحميل تطبيق.", mean: "تطبيق عملي: توجيه الكاميرا على طاولة المطعم فتظهر الوجبة مجسمة 3D أمام الزبون فوراً." },
+      { en: "User-Generated Content (UGC)", ar: "المحتوى من صنع المستخدمين والجمهور", def: "الصور والفيديوهات التي ينشئها الجمهور العادي وينشرها طوعاً حول تجربته مع الحملة.", mean: "تطبيق عملي: تصوير الزبائن للوجبة المجسمة على طاولتهم ونشرها ستوري." },
+      { en: "Newsjacking", ar: "اختطاف التريند والأحداث الإخبارية اللحظية", def: "ربط العلامة التجارية بحدث إخباري عاجل أو تريند جارٍ خلال ساعات قليلة بأسلوب ذكي.", mean: "تطبيق عملي: استغلال موسم الامتحانات أو المباريات الكبرى بعرض مفاجئ لطلاب جامعة المنصورة." },
+      { en: "Geofencing Marketing", ar: "التسييج الجغرافي الرقمي وإعادة الاستهداف", def: "رسم نطاق جغرافي افتراضي حول موقع الحملة الميدانية لإرسال إعلانات تذكيرية لهواتف المتواجدين داخله.", mean: "تطبيق عملي: إرسال إعلان خصم فوري لكل من يمر في نطاق 500 متر حول المطعم." },
+      { en: "Offline-to-Online (O2O)", ar: "التحويل والتكامل من الواقع المادي إلى المنصات الإلكترونية", def: "نقل العميل من نقطة تفاعل مادية في الشارع إلى متجر إلكتروني أو صفحة حجز لإتمام الشراء.", mean: "تطبيق عملي: مسح كود QR من الشارع للطلب أو الحجز أونلاين بخصم حصري." },
+      { en: "Banner Blindness", ar: "العمى الإعلاني (التجاهل اللاواعي للإعلانات)", def: "ظاهرة نفسية يتجاهل فيها العقل البشري تلقائياً اللافتات والبانرات الإعلانية التقليدية نتيجة التشبع البصري.", mean: "تطبيق عملي: كسر التجاهل عبر تجربة تفاعلية بالموبايل بدلاً من لافتة تقليدية." },
+      { en: "Earned Media Value (EMV)", ar: "القيمة المالية للإعلام المكتسب", def: "مؤشر مالي يقدّر التكلفة الإعلانية المكافئة للتغطية الصحفية والمشاركات المجانية التي حققتها الحملة.", mean: "تطبيق عملي: حساب قيمة آلاف المشاهدات المجانية على تيك توك لو كانت إعلاناً مدفوعاً." },
+      { en: "Affiliate Marketing", ar: "التسويق بالعمولة القائم على الأداء", def: "نموذج تسويقي يحصل فيه المسوّق الشريك على عمولة مالية مقابل كل عملية بيع أو حجز تتم عبر رابطه أو كود QR الخاص به.", mean: "تطبيق عملي: توزيع بطاقات QR مخصصة للمسوقين؛ كل طلب يأتي من الكود تُحسب عمولته تلقائياً." },
+      { en: "UTM Parameters", ar: "معاملات تتبع مصادر الزيارات في الروابط", def: "رموز نصية قياسية تُضاف لنهاية الرابط لتحديد مصدر الزيارة واسم الحملة وكود المسوّق بدقة.", mean: "تطبيق عملي: علامة رقمية في الرابط تحدد من أي مسوّق أو شارع جاء كل طلب." },
+      { en: "Cost Per Sale (CPS)", ar: "نموذج العمولة مقابل إتمام البيع الفعلي", def: "نظام محاسبي لا يدفع فيه التاجر أي عمولة للمسوّق إلا عند إتمام العميل لعملية شراء فعلية.", mean: "تطبيق عملي: لا تُدفع أي عمولة إلا بعد دخول قيمة الوجبة أو الحجز الفندقي فعلياً." },
+      { en: "Cost Per Lead (CPL)", ar: "نموذج العمولة مقابل تسجيل العميل المحتمل", def: "نظام عمولة يحصل فيه المسوّق على مبلغ ثابت مقابل كل شخص يمسح الكود ويسجل بياناته.", mean: "تطبيق عملي: عمولة فورية مقابل كل عميل يسجل رقم هاتفه للحصول على عرض الفندق." },
+      { en: "Key Performance Indicators (KPIs)", ar: "مؤشرات الأداء الرئيسية القابلة للقياس", def: "مقاييس رقمية محددة مسبقاً (معدل المسح، التحويل، العائد على الاستثمار) لتقييم نجاح الحملة.", mean: "تطبيق عملي: الأرقام الحاسمة التي تقيس نجاح الحملة بدقة." },
+      { en: "Return On Investment (ROI)", ar: "معدل العائد المالي على الاستثمار", def: "نسبة مئوية تقيس صافي الربح المحقق من الحملة مقارنة بإجمالي التكاليف التي أُنفقت عليها.", mean: "تطبيق عملي: (الإيرادات المحققة − التكلفة) ÷ التكلفة × 100." }
+    ];
+
+    /* =========================================================================
+       4. ALL 17 SLIDES (NOTHING REMOVED + NEW SLIDES ADDED & ORGANIZED)
+       ========================================================================= */
+    const slides = [
+      {
+        num: 1, img: 1, short: "الغلاف الرئيسي",
+        kicker: "المحور الأول: التأسيس والمفاهيم • الشريحة 01 / 17",
+        title: "التسويق الغوريلا (<span class='en'>Guerrilla Marketing</span>): كيف تهزم الفكرة الذكية الميزانيات المليونية؟",
+        subtitle: "دراسة أكاديمية وتطبيقية شاملة ومرتبة في 5 محاور: الجذور التاريخية، الأبعاد الستة، المزيج السباعي، دراسات الحالة العالمية، التقنيات الحديثة وخطوات صناعة WebAR، برنامج QR العمولة، والتطبيق في المنصورة.",
+        badge: "PART 01 • FOUNDATIONS & CONCEPTS",
+        render: () => `
+          <div class="grid-2" style="align-items:center;height:100%">
+            <div style="display:flex;flex-direction:column;gap:11px">
+              <div class="card red">
+                <span class="pill-tag">الفلسفة الجوهرية والعائد المالي</span>
+                <h3>استبدال الإنفاق المالي الضخم باستثمار الخيال والتكنولوجيا الذكية</h3>
+                <p>يعتمد التسويق الغوريلا على اختراق الروتين الذهني اليومي للمستهلك بمفاجأة ذكية غير متوقعة تكسر <strong>العمى الإعلاني (<span class="en">Banner Blindness</span>)</strong>. النتيجة الموثقة: خفض تكاليف الاستحواذ على العميل بنسبة <strong>80% إلى 90%</strong> وتحقيق عائد استثمار (<span class="en">ROI</span>) يتجاوز <strong>500%</strong>.</p>
+              </div>
+              <div class="card sky">
+                <span class="pill-tag" style="background:var(--sky-s);color:var(--sky)">خارطة العرض التقديمي المرتبة (17 شريحة • 5 محاور)</span>
+                <p style="margin:0;font-size:.81rem">
+                  <strong>1. التأسيس والمفاهيم (01–04):</strong> الجذور (1808–1984)، التطور عبر 4 عقود، والمقارنة بالتقليدي.<br/>
+                  <strong>2. الأبعاد والأطر النظرية (05–08):</strong> الأبعاد الستة (البيئي، الثقافي، الاجتماعي...)، الخصائص، الـ 7Ps، والـ 6 Rs.<br/>
+                  <strong>3. الأنواع ودراسات الحالة العالمية (09–11):</strong> الأمثلة العالمية الموثقة بالتاريخ والمكان والإيرادات.<br/>
+                  <strong>4. التقنيات والتطبيق العملي (12–15):</strong> التقنيات الحديثة، خطوات صناعة <span class="en">WebAR</span> (1-2-3)، مولّد <span class="en">QR</span> العمولة الحقيقي، وتطبيقات المنصورة.<br/>
+                  <strong>5. التقييم والتوثيق العلمي (16–17):</strong> تحليل <span class="en">SWOT</span>، المخاطر القانونية، القاموس (28)، والمراجع (16).
+                </p>
+              </div>
+            </div>
+            <div class="card" style="padding:11px">${renderFigure(1, "tall")}</div>
+          </div>`
+      },
+      {
+        num: 2, img: 2, short: "الجذور والولادة (1808–1984)",
+        kicker: "المحور الأول: التأسيس والمفاهيم • الشريحة 02 / 17",
+        title: "من تكتيكات حرب العصابات الإسبانية (1808) إلى ثورة عالم الأعمال (1984)",
+        subtitle: "كيف انتقل مفهوم عسكري يصف انتصار القوة الصغيرة المرنة على الجيوش النظامية ليصبح أهم مدرسة تسويقية للشركات الطموحة.",
+        badge: "HISTORICAL ROOTS • 1808 – 1984",
+        render: () => `
+          <div class="grid-2">
+            <div class="card red">
+              ${renderFigure(2)}
+              <span class="pill-tag">1808 – 1814 • إسبانيا</span>
+              <h3>1. الأصل العسكري لمصطلح (<span class="en">Guerrilla</span>)</h3>
+              <p>تشتق الكلمة من الإسبانية؛ <strong class="en">Guerra</strong> "الحرب" والتصغير <strong class="en">Guerrilla</strong> "الحرب الصغيرة". استخدمها المقاومون الإسبان ضد جيش نابليون اعتماداً على <strong>المرونة الفائقة، ومعرفة تضاريس الأرض بدقة، والضربات الخاطفة</strong> التي استنزفت جيشاً يفوقهم عدداً بأضعاف.</p>
+            </div>
+            <div class="card sky">
+              ${renderFigure(3)}
+              <span class="pill-tag" style="background:var(--sky-s);color:var(--sky)">1984 • بوسطن، الولايات المتحدة</span>
+              <h3>2. الولادة العلمية على يد "جاي كونراد ليفينسون"</h3>
+              <p>في عام <strong>1984</strong>، أصدر الخبير الأمريكي <strong>جاي كونراد ليفينسون (<span class="en">Jay Conrad Levinson</span>)</strong> كتابه المرجعي <em class="en">"Guerrilla Marketing"</em> الذي بيع منه أكثر من <strong>21 مليون نسخة</strong> وتُرجم إلى <strong>62 لغة</strong>.</p>
+              <div class="note-box"><strong>معادلة ليفينسون:</strong> "بدلاً من استثمار المال لشراء انتباه الجمهور بالقوة، استثمر <strong>الوقت، والطاقة الإبداعية، والخيال، والمعلومات الدقيقة</strong>".</div>
+            </div>
+          </div>`
+      },
+      {
+        num: 3, img: 4, short: "محطات التطور (4 عقود)",
+        kicker: "المحور الأول: التأسيس والمفاهيم • الشريحة 03 / 17",
+        title: "رحلة التطور التاريخي للتسويق الغوريلا عبر 4 عقود (1984 – 2026)",
+        subtitle: "المراحل الخمس لتطور التسويق الغوريلا موثقة بالتاريخ والمكان والإيرادات المحققة في كل مرحلة.",
+        badge: "4 DECADES EVOLUTION • 1984 – 2026",
+        render: () => `
+          <div class="grid-2" style="grid-template-columns:.88fr 1.12fr;align-items:start">
+            <div class="card red">
+              ${renderFigure(4)}
+              <span class="pill-tag">جوهر التحول عبر الزمن</span>
+              <p>لم تتغير فلسفة <strong>"المفاجأة الذكية بأقل تكلفة"</strong> منذ عام 1984، وإنما تطورت <strong>الوسائط</strong>؛ فمن الملصقات الورقية في الثمانينيات، إلى يوتيوب في الألفية، وصولاً إلى الواقع المعزز (<span class="en">WebAR</span>) والجرافيك (<span class="en">FOOH</span>) اليوم.</p>
+            </div>
+            <div>
+              <div class="tab-row">
+                <button class="tab-btn active" onclick="pickEra(0,this)">1. عصر الشارع (1984–1998)</button>
+                <button class="tab-btn" onclick="pickEra(1,this)">2. نقطة التحول (1999)</button>
+                <button class="tab-btn" onclick="pickEra(2,this)">3. عصر يوتيوب (2000–2009)</button>
+                <button class="tab-btn" onclick="pickEra(3,this)">4. عصر التجارب (2010–2019)</button>
+                <button class="tab-btn" onclick="pickEra(4,this)">5. العصر الهجين (2020–2026)</button>
+              </div>
+              <div id="eraBox">${renderEraCard(0)}</div>
+            </div>
+          </div>`
+      },
+      {
+        num: 4, img: 5, short: "المقارنة بالتسويق التقليدي",
+        kicker: "المحور الأول: التأسيس والمفاهيم • الشريحة 04 / 17",
+        title: "المقارنة الجوهرية: التسويق التقليدي مقابل التسويق الغوريلا",
+        subtitle: "تحليل مقارن في 7 أبعاد تشغيلية ومالية يوضح تفوق التسويق الغوريلا في كفاءة الإنفاق وبناء الارتباط العاطفي.",
+        badge: "TRADITIONAL VS GUERRILLA",
+        render: () => `
+          <div class="grid-2" style="grid-template-columns:1.25fr .75fr;align-items:start;margin-bottom:10px">
+            <table class="ppt-table">
+              <thead><tr><th>وجه المقارنة</th><th>التسويق التقليدي (<span class="en">Traditional</span>)</th><th>التسويق الغوريلا (<span class="en">Guerrilla</span>)</th></tr></thead>
+              <tbody>
+                <tr><td><strong>1. المورد الأساسي</strong></td><td>الميزانيات الضخمة لشراء المساحات الإعلانية.</td><td>الوقت، الطاقة الإبداعية، والخيال وتوظيف التكنولوجيا.</td></tr>
+                <tr><td><strong>2. معيار القياس</strong></td><td>حجم الوصول الكمي دون ضمان التفاعل أو البيع.</td><td>التفاعل الحقيقي، الإعلام المكتسب المجاني، وصافي الأرباح.</td></tr>
+                <tr><td><strong>3. عنصر المفاجأة</strong></td><td>منخفض؛ المستهلك يتوقع الإعلان ويتجاهله تلقائياً.</td><td>مرتفع جداً؛ يخترق روتين المستهلك في لحظة غير متوقعة.</td></tr>
+                <tr><td><strong>4. دور الجمهور</strong></td><td>متلقٍ سلبي يُفرض عليه الإعلان قسراً.</td><td>شريك نشط يمسح الكود ويصور التجربة وينشرها طوعاً.</td></tr>
+                <tr><td><strong>5. الاستمرارية</strong></td><td>تتوقف بمجرد انتهاء الميزانية المدفوعة.</td><td>تستمر ذاتياً عبر المشاركة الفيروسية والتوصية الشفهية.</td></tr>
+                <tr><td><strong>6. الاستهداف</strong></td><td>استهداف جماهيري واسع يسبب هدراً مالياً كبيراً.</td><td>اصطياد دقيق للشريحة المستهدفة في نقاط تجمعها الحقيقية.</td></tr>
+                <tr><td><strong>7. المرونة</strong></td><td>بطيئة ومقيدة بعقود حجز طويلة الأجل.</td><td>فائقة السرعة؛ يمكن تصميم وتنفيذ الفكرة خلال ساعات قليلة.</td></tr>
+              </tbody>
+            </table>
+            <div class="card red" style="padding:11px">
+              ${renderFigure(5, "compact")}
+              <p style="margin:0;font-size:.80rem">الفرق العملي: اللوحة التقليدية يمر بجانبها الناس دون التفات (نسبة انتباه &lt; 0.5%)، بينما تجربة الغوريلا التفاعلية تضاعف معدل التذكر 6 مرات.</p>
+            </div>
+          </div>
+          <div class="card red" style="padding:10px 14px">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+              <h3 style="margin:0">🎚️ محاكي التحوّل الحي (مثال: إطلاق مطعم في شارع المشاية السفلية بالمنصورة)</h3>
+              <span class="pill-tag" id="simVal" style="margin:0">نسبة التحوّل: 50%</span>
+            </div>
+            <input type="range" min="0" max="100" value="50" style="width:100%;accent-color:var(--red);margin:5px 0" oninput="updateSim(this.value)" />
+            <div class="grid-2">
+              <div class="note-box" id="simTrad" style="margin:0"><strong>التقليدي:</strong> لوحة طرق بـ 120,000 ج.م شهرياً يمر بها السائقون بسرعة دون تفاعل (نسبة تحويل للمطعم &lt; 0.3%).</div>
+              <div class="note-box" id="simGuer" style="margin:0;border-color:var(--em);background:var(--em-s)"><strong>الغوريلا:</strong> منيو الواقع المعزز <span class="en">WebAR</span> + فيديو <span class="en">FOOH</span> بـ 14,500 ج.م — يجذب أكثر من 2,200 عميل بإيرادات تتجاوز 418,000 ج.م.</div>
+            </div>
+          </div>`
+      },
+      {
+        num: 5, img: 6, short: "الأبعاد السياقية الستة",
+        kicker: "المحور الثاني: الأبعاد والأطر النظرية • الشريحة 05 / 17",
+        title: "الأبعاد السياقية الستة للتسويق الغوريلا (<span class='en'>Contextual Dimensions</span>)",
+        subtitle: "تصميم الحملة وفق ستة أبعاد سياقية متكاملة تحكم علاقة العلامة التجارية بالبيئة والمجتمع والسوق.",
+        badge: "PART 02 • ENVIRONMENTAL, CULTURAL, SOCIAL & MACRO DIMENSIONS",
+        render: () => `
+          <div class="grid-3">
+            <div class="card em"><span class="pill-tag" style="background:var(--em-s);color:var(--em)">01 • البُعد البيئي (<span class="en">Environmental</span>)</span><h3>الاستدامة واحترام البيئة الحضرية</h3><p>توظيف عناصر البيئة المحيطة <strong>دون الإضرار بها أو تلويثها</strong> وتقديم قيمة بيئية نظيفة.</p><div class="note-box" style="background:var(--em-s);border-color:var(--em)"><strong>مثال موثق (لندن، 2008):</strong> نفذت <span class="en">Domino's</span> حملة <strong>الجرافيتي العكسي (<span class="en">Reverse Graffiti</span>)</strong> بتنظيف الأرصفة المتربة بالماء المضغوط دون دهانات أو غرامات.</div></div>
+            <div class="card amb"><span class="pill-tag" style="background:var(--amb-s);color:var(--amb)">02 • البُعد الثقافي (<span class="en">Cultural</span>)</span><h3>مراعاة القيم والرموز واللغة المحلية</h3><p>تعتمد المفاجأة والفكاهة على <strong>الفهم الدقيق للثقافة المحلية</strong> والعادات واللهجة الدارجة.</p><div class="note-box" style="background:var(--amb-s);border-color:var(--amb)"><strong>التطبيق:</strong> تكييف الرسالة مع المناسبات الثقافية وروح الدعابة المحلية لضمان القبول الشعبي.</div></div>
+            <div class="card sky"><span class="pill-tag" style="background:var(--sky-s);color:var(--sky)">03 • البُعد الاجتماعي (<span class="en">Social</span>)</span><h3>العدوى الاجتماعية والتفاعل الإنساني</h3><p>تحويل الفرد من مشاهد منعزل إلى <strong>جزء من تجربة جماعية تشاركية</strong> واستثمار غريزة المشاركة.</p><div class="note-box" style="background:var(--sky-s);border-color:var(--sky)"><strong>مثال موثق (سنغافورة، 2012):</strong> آلة كوكاكولا <span class="en">Hug Me</span> منحت علبة مجانية لكل شخصين يعانقان الآلة، فرفعت المبيعات المحلية 18%.</div></div>
+            <div class="card red"><span class="pill-tag">04 • البُعد الاقتصادي (<span class="en">Economic</span>)</span><h3>كفاءة رأس المال وتعظيم العائد (<span class="en">ROI</span>)</h3><p>يهدف إلى <strong>كسر احتكار الشركات الكبرى</strong> للسوق عبر تحقيق أقصى انتشار ومبيعات بأقل تكلفة.</p><div class="note-box"><strong>التطبيق:</strong> استبدال الإعلانات المدفوعة المتكررة بضربة إبداعية واحدة تحقق تغطية رقمية مجانية.</div></div>
+            <div class="card ind"><span class="pill-tag" style="background:var(--ind-s);color:var(--ind)">05 • البُعد القانوني والأخلاقي (<span class="en">Legal</span>)</span><h3>الالتزام بالتشريعات والشفافية</h3><p>الجرأة الإبداعية لا تعني تجاوز القانون؛ بل تتطلب <strong>التوازن بين المفاجأة والامتثال القانوني</strong>.</p><div class="note-box" style="background:var(--ind-s);border-color:var(--ind)"><strong>التطبيق:</strong> استخدام تقنيات الواقع المعزز الرقمي <span class="en">WebAR</span> لتجنب إشغال الطريق أو الحاجة لتصاريح معقدة.</div></div>
+            <div class="card em" style="padding:11px">
+              ${renderFigure(6, "compact")}
+              <span class="pill-tag" style="background:var(--em-s);color:var(--em)">06 • البُعد التكنولوجي (<span class="en">Technological</span>)</span>
+              <p style="margin:0;font-size:.80rem">دمج الواقع المادي مع رموز <span class="en">QR</span> والواقع المعزز <span class="en">WebAR</span> لتتبع التحويلات والمبيعات رقمياً.</p>
+            </div>
+          </div>`
+      },
+      {
+        num: 6, img: 7, short: "الخصائص التكتيكية الست",
+        kicker: "المحور الثاني: الأبعاد والأطر النظرية • الشريحة 06 / 17",
+        title: "الخصائص التكتيكية الست لنجاح رسالة الغوريلا (<span class='en'>Hutter & Hoffmann</span>)",
+        subtitle: "ست خصائص فنية موثقة بأمثلة واقعية يجب توافرها داخل تصميم الإعلان لضمان اختراق ذهن المستهلك.",
+        badge: "SURPRISE • DIFFUSION • LOW COST • CLARITY • HUMOR • CREATIVITY",
+        render: () => `
+          <div class="grid-3">
+            <div class="card red" style="padding:11px">
+              ${renderFigure(7, "compact")}
+              <span class="pill-tag">01 • Surprise (المفاجأة)</span>
+              <h3>كسر التوقع في ثانية واحدة</h3>
+              <p style="margin:0;font-size:.80rem"><strong>مثال (زيورخ، سويسرا - 2008):</strong> ملصق ثلاثي الأبعاد على أرضية مصعد يوحي بفقدان الأرضية للإعلان عن مدرسة القفز المظلي <span class="en">Swiss Skydive</span>؛ رفع الحجوزات بنسبة <strong>45%</strong>.</p>
+            </div>
+            <div class="card sky"><span class="pill-tag" style="background:var(--sky-s);color:var(--sky)">02 • Diffusion (الانتشار)</span><h3>قابلية الانتشار والعدوى</h3><p>هندسة الفكرة لتكون مثيرة للفضول بحيث يبادر كل من يشاهدها بتصويرها ومشاركتها.</p><div class="note-box"><strong>مثال (نيويورك، 2010):</strong> آلة سعادة كوكاكولا حصدت <strong>4.5 مليون مشاهدة</strong> في أسبوع واحد دون إعلانات ممولة.</div></div>
+            <div class="card amb"><span class="pill-tag" style="background:var(--amb-s);color:var(--amb)">03 • Low Cost (التكلفة المنخفضة)</span><h3>التكلفة المنخفضة والأثر المرتفع</h3><p>تعظيم العائد الإعلامي بأقل إنفاق نقدي عبر إعادة توظيف الأدوات المتاحة بذكاء.</p><div class="note-box"><strong>مثال (نيويورك، 2007):</strong> وضع أغطية أكواب قهوة فوق فتحات البخار في مانهاتن لإطلاق قهوة <span class="en">Folgers</span> بتكلفة 8,000 دولار فقط.</div></div>
+            <div class="card em"><span class="pill-tag" style="background:var(--em-s);color:var(--em)">04 • Clarity (الوضوح الفوري)</span><h3>قاعدة الـ 3 ثوانٍ الذهبية</h3><p>يجب أن يفهم المارّ الفكرة واسم العلامة في أقل من <strong>3 ثوانٍ</strong> دون شروح طويلة.</p><div class="note-box"><strong>مثال (كندا، 2011):</strong> طلاء عمود إنارة نحيف ليبدو كعود أسنان عملاق يحمل شعار عيادة أسنان، فزادت الاتصالات <strong>60%</strong>.</div></div>
+            <div class="card red"><span class="pill-tag">05 • Humor (الفكاهة)</span><h3>الفكاهة والبهجة الذكية</h3><p>الابتسامة تكسر الحاجز الدفاعي لدى المستهلك، فترتبط العلامة بمشاعر إيجابية دافئة.</p><div class="note-box"><strong>مثال (برلين، ألمانيا - 2010):</strong> مرايا مقعرة في محطات الحافلات تُظهر المارة بأجساد رياضية لنادي <span class="en">Fitness First</span>؛ رفعت الاشتراكات <strong>27%</strong>.</div></div>
+            <div class="card ind"><span class="pill-tag" style="background:var(--ind-s);color:var(--ind)">06 • Creativity (الابتكار)</span><h3>الخروج عن القوالب النمطية</h3><p>ربط وظيفة المنتج الحقيقية بصرياً مع عناصر الشارع أو هاتف المستهلك مباشرة.</p><div class="note-box"><strong>مثال (ألمانيا، 2009):</strong> تحويل مقابض اليد المعلقة في الحافلات إلى ساعات <span class="en">IWC</span> لتجربتها على معصم الراكب مباشرة.</div></div>
+          </div>`
+      },
+      {
+        num: 7, img: 8, short: "المزيج السباعي (7Ps)",
+        kicker: "المحور الثاني: الأبعاد والأطر النظرية • الشريحة 07 / 17",
+        title: "المزيج التسويقي الغوريلا السباعي (<span class='en'>Extended 7Ps Marketing Mix</span>)",
+        subtitle: "إعادة هندسة عناصر المزيج التسويقي السبعة لتحويل كل نقطة تماس مع العميل إلى تجربة إعلانية مبتكرة.",
+        badge: "PRODUCT • PRICE • PLACE • PROMOTION • PEOPLE • PROCESS • EVIDENCE",
+        render: () => `
+          <div class="grid-3">
+            <div class="card red" style="padding:11px">
+              ${renderFigure(8, "compact")}
+              <span class="pill-tag en">01 • Product</span>
+              <h3>المنتج وتغليفه كوسيط دعائي</h3>
+              <p style="margin:0;font-size:.80rem"><strong>مثال (أوروبا ودبي، 2012):</strong> أكياس تسوق مطبوع عليها ذراع تحمل ثقلاً حديدياً لنادي <span class="en">Fitness Company</span>، فحوّلت كل عميل يحملها إلى إعلان متحرك.</p>
+            </div>
+            <div class="card amb"><span class="pill-tag en" style="background:var(--amb-s);color:var(--amb)">02 • Price</span><h3>التسعير التفاعلي والعينات المسرحية</h3><p>ربط السعر بتفاعل طريف أو تحدٍّ إيجابي يجذب الجمهور ويثير فضول المنصات.</p><div class="note-box"><strong>مثال (موسكو، 2013):</strong> ماكينة تذاكر مترو تمنح تذكرة مجانية مقابل أداء 30 تمرين قرفصاء خلال دقيقتين استعداداً للأولمبياد.</div></div>
+            <div class="card sky"><span class="pill-tag en" style="background:var(--sky-s);color:var(--sky)">03 • Place</span><h3>تحويل البيئة العامة لنقاط توزيع</h3><p>استغلال محطات المترو وممرات الجامعات والمولات كنقاط بيع وتجربة رقمية مباشرة.</p><div class="note-box"><strong>مثال (سيول، كوريا الجنوبية - 2011):</strong> متجر <span class="en">Tesco Homeplus</span> الافتراضي على جدران المترو رفع المبيعات أونلاين بنسبة <strong>130%</strong>.</div></div>
+            <div class="card em"><span class="pill-tag en" style="background:var(--em-s);color:var(--em)">04 • Promotion</span><h3>الترويج بصناعة الخبر المجاني</h3><p>استبدال الإعلانات المدفوعة بصناعة حدث استثنائي تغطيه المنصات مجاناً (<span class="en">Earned Media</span>).</p></div>
+            <div class="card red"><span class="pill-tag en">05 • People</span><h3>الممثلون المتخفون وسفراء التجربة</h3><p>توظيف سفراء للعلامة يندمجون وسط الجمهور ليبدأوا تجربة عفوية للمنتج أمام المارة.</p></div>
+            <div class="card ind"><span class="pill-tag en" style="background:var(--ind-s);color:var(--ind)">06 &amp; 07 • Process &amp; Evidence</span><h3>العمليات والدليل المادي المدهش</h3><p>تصميم أدق التفاصيل الملموسة (الفاتورة، الأكواب، بطاقة الغرفة) لتكون مفاجأة تُصوَّر وتُشارك.</p></div>
+          </div>`
+      },
+      {
+        num: 8, img: 9, short: "المبادئ الستة (6 Rs)",
+        kicker: "المحور الثاني: الأبعاد والأطر النظرية • الشريحة 08 / 17",
+        title: "المبادئ الستة لاستدامة التسويق الغوريلا (<span class='en'>The 6 Rs Framework</span>)",
+        subtitle: "تحويل الدهشة العابرة إلى ولاء ومبيعات مستدامة عبر تطبيق المبادئ الستة المترابطة.",
+        badge: "REACH • RELEVANCE • RESONANCE • REACTION • RELATIONSHIP • REFERRAL",
+        render: () => `
+          <div class="grid-3">
+            <div class="card red"><span class="pill-tag en">01 • Reach</span><h3>1. الوصول الذكي (<span class="en">Reach</span>)</h3><p>اصطياد الشريحة المستهدفة بدقة جغرافية وزمنية في اللحظة والمكان الأنسب لتقبل الرسالة دون هدر مالي.</p></div>
+            <div class="card sky"><span class="pill-tag en" style="background:var(--sky-s);color:var(--sky)">02 • Relevance</span><h3>2. الملاءمة والسياق (<span class="en">Relevance</span>)</h3><p>التحام فكرة الحملة ببيئة المكان وثقافة الجمهور وتوقيتهم اللحظي.</p></div>
+            <div class="card amb"><span class="pill-tag en" style="background:var(--amb-s);color:var(--amb)">03 • Resonance</span><h3>3. الصدى العاطفي العميق (<span class="en">Resonance</span>)</h3><p>لمس وتر نفسي صادق لدى المستهلك (الفضول، التعاطف، الفخر، أو الضحك الصافي) يرسّخ العلامة في الذاكرة.</p></div>
+            <div class="card em"><span class="pill-tag en" style="background:var(--em-s);color:var(--em)">04 • Reaction</span><h3>4. رد الفعل الفوري (<span class="en">Reaction</span>)</h3><p>تحويل الدهشة السلبية إلى سلوك عملي فوري مثل مسح رمز <span class="en">QR</span> أو تجربة المنيو المجسم.</p></div>
+            <div class="card red" style="border:2px solid var(--red-b)"><span class="pill-tag en">05 • Relationship</span><h3>5. بناء العلاقة والاحتفاظ (<span class="en">Relationship</span>)</h3><p>الهدف النهائي ليس البيع لمرة واحدة، بل تحويل التفاعل الأول إلى <strong>علاقة ثقة وولاء مستمرة</strong>.</p></div>
+            <div class="card ind" style="padding:11px">
+              ${renderFigure(9, "compact")}
+              <span class="pill-tag en" style="background:var(--ind-s);color:var(--ind)">06 • Referral</span>
+              <h3>6. الإحالة والتوصية (<span class="en">Referral</span>)</h3>
+              <p style="margin:0;font-size:.80rem">تحويل كل متفاعل منبهر إلى <strong>سفير غير مدفوع الأجر</strong> يروي قصة التجربة لأصدقائه بكود إحالة خاص.</p>
+            </div>
+          </div>`
+      },
+      {
+        num: 9, img: 10, short: "الأنواع الميدانية الموثقة",
+        kicker: "المحور الثالث: الأنواع ودراسات الحالة العالمية • الشريحة 09 / 17",
+        title: "الأنواع الميدانية المباشرة (<span class='en'>Ambient, Street & Experiential</span>) بالتاريخ والأرقام",
+        subtitle: "توثيق كامل لأشهر الحملات الميدانية العالمية: متى وأين نُفّذت، كم تكلفت، وماذا حققت من نتائج.",
+        badge: "PART 03 • FIELD & EXPERIENTIAL CASE DATA",
+        render: () => `
+          <div class="grid-3">
+            <div class="card red">
+              ${renderFigure(10)}
+              <span class="pill-tag">01 • التسويق المحيطي (Ambient)</span>
+              <h3>مقاعد شوكولاتة <span class="en">KitKat</span></h3>
+              <div class="note-box">
+                <strong>المكان والتاريخ:</strong> حدائق أمستردام وأوتريخت (هولندا) ومانشستر (بريطانيا) — <strong>صيف 2012</strong>.<br/>
+                <strong>ما حدث والنتيجة:</strong> طلاء مقاعد الحدائق العامة كألواح شوكولاتة كيت كات؛ حققت الحملة انتشاراً في <strong>30+ دولة</strong> ورفعت المبيعات المحلية بنسبة <strong>14%</strong> بتكلفة طلاء رمزية.
+              </div>
+            </div>
+            <div class="card amb">
+              ${renderFigure(11)}
+              <span class="pill-tag" style="background:var(--amb-s);color:var(--amb)">02 • تسويق الشارع (Street)</span>
+              <h3>شفرة حلاقة <span class="en">Gillette</span> العملاقة</h3>
+              <div class="note-box">
+                <strong>المكان والتاريخ:</strong> حديقة عامة في أمستردام (هولندا) — <strong>مايو 2007</strong>.<br/>
+                <strong>ما حدث والنتيجة:</strong> وضع مجسم شفرة جيليت بطول 4 أمتار وخلفها خط عشب مقصوص بدقة؛ حصدت تغطية في <strong>45 وسيلة إعلامية أوروبية</strong> وعززت حصة جيليت السوقية في هولندا إلى <strong>74%</strong>.
+              </div>
+            </div>
+            <div class="card sky">
+              ${renderFigure(12)}
+              <span class="pill-tag" style="background:var(--sky-s);color:var(--sky)">03 • التسويق التجريبي (Experiential)</span>
+              <h3>آلة سعادة <span class="en">Coca-Cola</span></h3>
+              <div class="note-box">
+                <strong>المكان والتاريخ:</strong> جامعة سانت جونز (<span class="en">St. John's University</span>)، نيويورك — <strong>يناير 2010</strong>.<br/>
+                <strong>ما حدث والنتيجة:</strong> بتكلفة إنتاج <strong>30,000 دولار</strong> فقط، حقق الفيديو <strong>4.5 مليون مشاهدة</strong> في أسبوع واحد (و<strong>11+ مليون</strong> إجمالاً) ورفع مبيعات الجامعات <strong>11%</strong>.
+              </div>
+            </div>
+          </div>`
+      },
+      {
+        num: 10, img: 13, short: "الأنواع الذكية والخفية والفيروسية",
+        kicker: "المحور الثالث: الأنواع ودراسات الحالة العالمية • الشريحة 10 / 17",
+        title: "الأنواع الذكية، الخفية، والفيروسية (<span class='en'>Ambush, Stealth & Viral</span>) بالأرقام",
+        subtitle: "كيف حققت هذه الحملات قفزات مليونية في الإيرادات والمبيعات بتكاليف محدودة في مواقع محددة.",
+        badge: "AMBUSH • STEALTH • VIRAL & BUZZ DATA",
+        render: () => `
+          <div class="grid-3">
+            <div class="card red">
+              ${renderFigure(13)}
+              <span class="pill-tag">04 • تسويق الكمائن (Ambush)</span>
+              <h3>كمين <span class="en">Nike</span> في أولمبياد أتلانتا</h3>
+              <div class="note-box">
+                <strong>المكان والتاريخ:</strong> أتلانتا، جورجيا (الولايات المتحدة) — <strong>يوليو–أغسطس 1996</strong>.<br/>
+                <strong>الأرقام والإيرادات:</strong> دفعت <span class="en">Reebok</span> <strong>50 مليون دولار</strong> كراعٍ رسمي، بينما بنت <span class="en">Nike</span> مركزاً ملاصقاً للقرية الأولمبية؛ النتيجة: <strong>70%</strong> ظنوا أن نايكي هي الراعي، وقفزت إيراداتها السنوية بنسبة <strong>36%</strong> لتبلغ <strong>6.47 مليار دولار</strong>.
+              </div>
+            </div>
+            <div class="card sky">
+              ${renderFigure(14)}
+              <span class="pill-tag" style="background:var(--sky-s);color:var(--sky)">05 • التسويق الخفي (Stealth)</span>
+              <h3>سياح <span class="en">Sony Ericsson</span> المزيفون</h3>
+              <div class="note-box">
+                <strong>المكان والتاريخ:</strong> نيويورك ولوس أنجلوس و10 مدن أمريكية كبرى — <strong>صيف 2002</strong>.<br/>
+                <strong>الأرقام والإيرادات:</strong> 60 ممثلاً متخفياً كسياح طلبوا من المارة تصويرهم بهاتف <span class="en">T68i</span>؛ تصدّر الهاتف مبيعات فئته في الربع الثالث من 2002 بتكلفة أقل بـ <strong>85%</strong> من الإعلانات التلفزيونية.
+              </div>
+            </div>
+            <div class="card ind">
+              ${renderFigure(15)}
+              <span class="pill-tag" style="background:var(--ind-s);color:var(--ind)">06 • التسويق الفيروسي (Viral)</span>
+              <h3>تجربة الخلاط الخارق (<span class="en">Blendtec</span>)</h3>
+              <div class="note-box">
+                <strong>المكان والتاريخ:</strong> مدينة أوريم، ولاية يوتا (الولايات المتحدة) — <strong>أكتوبر 2006</strong>.<br/>
+                <strong>الأرقام والإيرادات:</strong> بميزانية <strong>50 دولاراً فقط</strong> لشراء أغراض لطحنها في الخلاط، حصدت السلسلة <strong>280+ مليون مشاهدة</strong> وقفزت مبيعات خلاطات <span class="en">Blendtec</span> بنسبة <strong>700%</strong> خلال عام واحد!
+              </div>
+            </div>
+          </div>`
+      },
+      {
+        num: 11, img: 16, short: "دراسات حالة عالمية موثقة",
+        kicker: "المحور الثالث: الأنواع ودراسات الحالة العالمية • الشريحة 11 / 17",
+        title: "دراسات حالة عالمية موثّقة بالتاريخ والمكان والإيرادات (اضغط الأرقام للتحليل)",
+        subtitle: "استعراض تفصيلي لأنجح 4 حملات غوريلا عالمية مع بيانات الموقع والتاريخ والتكلفة والعائد المالي المحقق.",
+        badge: "DOCUMENTED GLOBAL CASE STUDIES",
+        render: () => `
+          <div class="grid-2">
+            <div class="card amb" style="padding:11px">
+              ${renderFigure(16, "compact", `<span class="xray-dot" style="top:15%;right:18%" onclick="setXray('cx1','المكان والتاريخ: 12 فرعاً من 7-Eleven في أمريكا وكندا (نيويورك، لوس أنجلوس، شيكاغو، دالاس، سياتل، وفانكوفر) في يوليو 2007.')">1</span><span class="xray-dot" style="bottom:15%;left:22%" onclick="setXray('cx1','الإيرادات والنتائج: ارتفعت مبيعات الفروع الـ 12 بنسبة 30% وتضاعفت مبيعات القهوة 3 مرات، وحقق الفيلم افتتاحية 74 مليون دولار.')">2</span>`)}
+              <h3>1. متاجر <span class="en">Kwik-E-Mart</span> — <span class="en">The Simpsons</span> (يوليو 2007)</h3>
+              <p style="font-size:.79rem"><strong>أمريكا وكندا (12 فرعاً):</strong> تحويل فروع حقيقية من <span class="en">7-Eleven</span> لمتاجر كرتونية ← <strong>+30% مبيعات الفروع</strong> و<strong>74 مليون دولار</strong> إيرادات افتتاحية.</p>
+              <div class="note-box" id="cx1" style="padding:6px 9px;font-size:.77rem"><strong>عدسة التحليل:</strong> اضغط على (1) للمكان والتاريخ أو (2) للإيرادات.</div>
+            </div>
+            <div class="card sky" style="padding:11px">
+              ${renderFigure(17, "compact", `<span class="xray-dot" style="top:15%;right:18%" onclick="setXray('cx2','المكان والتاريخ: محطة قطار ليفربول ستريت (Liverpool Street Station) في لندن، بريطانيا — 15 يناير 2009 الساعة 11:00 صباحاً بمشاركة 350 راقصاً.')">1</span><span class="xray-dot" style="bottom:15%;left:22%" onclick="setXray('cx2','الإيرادات والنتائج: حصد الفيديو 42 مليون مشاهدة مجانية على يوتيوب، وقفزت مبيعات هواتف T-Mobile في بريطانيا بنسبة 52% في الربع الأول من 2009.')">2</span>`)}
+              <h3>2. تجمع <span class="en">T-Mobile</span> الراقص — لندن (15 يناير 2009)</h3>
+              <p style="font-size:.79rem"><strong>محطة ليفربول ستريت، لندن:</strong> 350 راقصاً فاجأوا آلاف المسافرين ← <strong>42 مليون مشاهدة</strong> وقفزة <strong>+52% في مبيعات الهواتف</strong>.</p>
+              <div class="note-box" id="cx2" style="padding:6px 9px;font-size:.77rem"><strong>عدسة التحليل:</strong> اضغط على (1) للمكان والتاريخ أو (2) للإيرادات.</div>
+            </div>
+            <div class="card red" style="padding:11px">
+              ${renderFigure(18, "compact", `<span class="xray-dot" style="top:15%;right:18%" onclick="setXray('cx3','المكان والتاريخ: شارع ليماتكواي (Limmatquai) في مدينة زيورخ، سويسرا — يوليو 2010 بالتزامن مع مهرجان Züri Fäscht أمام فرع ماكدونالدز مباشرة.')">1</span><span class="xray-dot" style="bottom:15%;left:22%" onclick="setXray('cx3','الإيرادات والنتائج: ارتفع عدد زبائن وإيرادات الفرع المجاور بنسبة 38% خلال أيام المهرجان الثلاثة بتكلفة تصريح وطلاء محدودة جداً.')">2</span>`)}
+              <h3>3. ممر بطاطس <span class="en">McDonald's</span> — زيورخ (يوليو 2010)</h3>
+              <p style="font-size:.79rem"><strong>شارع ليماتكواي، زيورخ (سويسرا):</strong> تحويل خطوط عبور المشاة لعبوة بطاطس ← زيادة <strong>+38% في زبائن وإيرادات الفرع</strong> خلال 3 أيام.</p>
+              <div class="note-box" id="cx3" style="padding:6px 9px;font-size:.77rem"><strong>عدسة التحليل:</strong> اضغط على (1) للمكان والتاريخ أو (2) للإيرادات.</div>
+            </div>
+            <div class="card ind" style="padding:11px">
+              ${renderFigure(19, "compact", `<span class="xray-dot" style="top:15%;right:18%" onclick="setXray('cx4','المكان والتاريخ: محطة مترو أوبير (Auber RER Station) في باريس، فرنسا — من 10 إلى 15 مارس 2014 (6 أيام) بمساحة 54 متراً مربعاً.')">1</span><span class="xray-dot" style="bottom:15%;left:22%" onclick="setXray('cx4','الإيرادات والنتائج: زار الشقة 180,000 شخص، ارتفعت زيارات فروع إيكيا باريس بنسبة 22%، وحققت الحملة تغطية إعلامية بقيمة 3.5 مليون يورو.')">2</span>`)}
+              <h3>4. شقة <span class="en">IKEA</span> داخل مترو باريس (مارس 2014)</h3>
+              <p style="font-size:.79rem"><strong>محطة مترو أوبير، باريس (فرنسا):</strong> شقة مفروشة 54 م² عاش فيها 5 متطوعين ← <strong>+22% زيارات للفروع</strong> و<strong>3.5 مليون يورو</strong> تغطية مجانية.</p>
+              <div class="note-box" id="cx4" style="padding:6px 9px;font-size:.77rem"><strong>عدسة التحليل:</strong> اضغط على (1) للمكان والتاريخ أو (2) للإيرادات.</div>
+            </div>
+          </div>`
+      },
+      {
+        num: 12, img: 20, short: "التقنيات الحديثة للتسويق",
+        kicker: "المحور الرابع: التقنيات الحديثة والتطبيق العملي • الشريحة 12 / 17",
+        title: "التقنيات والتطبيقات الحديثة التي نربطها بالتسويق الغوريلا (<span class='en'>Modern MarTech</span>)",
+        subtitle: "كيف نوظف أحدث تقنيات الواقع المعزز والجرافيك ثلاثي الأبعاد والتتبع الذكي لخلق تجارب مدهشة بأقل تكلفة.",
+        badge: "PART 04 • WEBAR • FOOH • PHYGITAL • GEOFENCING",
+        render: () => `
+          <div class="grid-3">
+            <div class="card red">
+              ${renderFigure(21, "compact")}
+              <span class="pill-tag">01 • الواقع المعزز عبر المتصفح (WebAR)</span>
+              <h3>منيو وكتالوج <span class="en">3D</span> بدون تطبيق</h3>
+              <p style="margin:0;font-size:.80rem">يمسح الزبون كود <span class="en">QR</span> بكاميرا موبايله العادية فيفتح رابط ويب يُظهر الوجبة أو غرفة الفندق مجسمة أمامه بحجمها الحقيقي مع زر طلب أو حجز مباشر.</p>
+            </div>
+            <div class="card sky">
+              ${renderFigure(20, "compact")}
+              <span class="pill-tag" style="background:var(--sky-s);color:var(--sky)">02 • الإعلانات الوهمية (FOOH / CGI)</span>
+              <h3>فيديوهات مجسمات عملاقة في الشارع</h3>
+              <p style="margin:0;font-size:.80rem">تصوير فيديو حقيقي للشارع بالموبايل ثم دمج مجسم <span class="en">3D</span> عملاق (مثل علبة برجر تفتح فوق المبنى) ونشره على تيك توك وإنستغرام بتكلفة صفر إعلانات طرق.</p>
+            </div>
+            <div class="card amb">
+              ${renderFigure(22, "compact")}
+              <span class="pill-tag" style="background:var(--amb-s);color:var(--amb)">03 • التسويق الهجين (Phygital)</span>
+              <h3>ربط البطاقة الملموسة بالتفاعل الرقمي</h3>
+              <p style="margin:0;font-size:.80rem">توزيع بطاقة مادية ذكية (مثل مفتاح غرفة فندقية أو كرت دعوة) تتحول بمجرد توجيه الهاتف عليها إلى نافذة ثلاثية الأبعاد تعرض الشاطئ أو العرض الحصري.</p>
+            </div>
+            <div class="card em">
+              <span class="pill-tag" style="background:var(--em-s);color:var(--em)">04 • التسييج الجغرافي (Geofencing)</span>
+              <h3>اصطياد المارة حول موقع المطعم أو الفندق</h3>
+              <p style="margin:0;font-size:.80rem">رسم دائرة افتراضية (500 م – 1 كم) حول موقع الحملة لإرسال إعلان خصم فوري لكل من يمر داخل المنطقة في نفس اللحظة.</p>
+            </div>
+            <div class="card ind">
+              <span class="pill-tag" style="background:var(--ind-s);color:var(--ind)">05 • التحويل الفوري (O2O)</span>
+              <h3>نقل العميل من الشارع إلى الدفع أونلاين</h3>
+              <p style="margin:0;font-size:.80rem">ربط كل نقطة تفاعل في الشارع أو الطاولة بصفحة طلب سريعة بكود خصم حصري يقيس بدقة كل عميل جاء من الحملة.</p>
+            </div>
+            <div class="card red">
+              <span class="pill-tag">06 • التسويق بالعمولة الذكي (QR Affiliate)</span>
+              <h3>تحويل الجمهور والمسوقين لشركاء مبيعات</h3>
+              <p style="margin:0;font-size:.80rem">تخصيص كود <span class="en">QR</span> ورابط <span class="en">UTM</span> مستقل لكل مسوّق أو طالب أو مؤثر؛ يُسجّل كل طلب تلقائياً ويحسب العمولة بدون أي مجهود يدوي.</p>
+            </div>
+          </div>`
+      },
+      {
+        num: 13, img: 21, short: "خطوات صناعة WebAR و 3D (1-2-3)",
+        kicker: "المحور الرابع: التقنيات الحديثة والتطبيق العملي • الشريحة 13 / 17",
+        title: "خطوات التنفيذ العملية (1 – 2 – 3): نخش على إيه، ننزّل إيه، نصوّر إيه؟",
+        subtitle: "دليل خطوة بخطوة لصناعة مجسمات ثلاثية الأبعاد (3D) وتجارب الواقع المعزز (WebAR) وفيديوهات الجرافيك (FOOH) بنفسك.",
+        badge: "STEP-BY-STEP EXECUTION • 1 – 2 – 3",
+        render: () => `
+          <div class="grid-3">
+            <div class="card red">
+              <span class="pill-tag">المسار الأول • صناعة منيو الواقع المعزز (WebAR)</span>
+              <h3>كيف تُظهر الوجبة مجسمة 3D فوق الطاولة؟</h3>
+              <p style="font-size:.80rem">
+                <strong>الخطوة 1 (ننزّل إيه ونصوّر إيه):</strong> حمّل تطبيق <strong class="en">Polycam</strong> أو <strong class="en">Luma AI</strong> المجاني على موبايلك، ضع الساندوتش أو الطبق في إضاءة جيدة وصوّره فيديو دائرياً 360 درجة لمدة <strong>20 ثانية</strong>، ثم اضغط <strong class="en">Export .GLB</strong>.<br/>
+                <strong>الخطوة 2 (نخش على إيه):</strong> افتح موقع <strong class="en">MyWebAR.com</strong> أو <strong class="en">AssemblrWorld.com</strong>، ارفع ملف الـ <span class="en">.GLB</span>، واضبط حجمه وأضف زر <strong>«اطلب الآن بخصم 20%»</strong>.<br/>
+                <strong>الخطوة 3 (التشغيل):</strong> المنصة تعطيك كود <span class="en">QR</span>؛ اطبعه على الطاولة ليفتحه الزبون بكاميرا موبايله فوراً!
+              </p>
+            </div>
+            <div class="card sky">
+              <span class="pill-tag" style="background:var(--sky-s);color:var(--sky)">المسار الثاني • صناعة فيديو الجرافيك الوهمي (FOOH)</span>
+              <h3>كيف تصنع فيديو مجسم عملاق فوق مبنى؟</h3>
+              <p style="font-size:.80rem">
+                <strong>الخطوة 1 (نصوّر إيه):</strong> قف في <strong>شارع المشاية السفلية بالمنصورة</strong> وصوّر بالموبايل فيديو ثابتاً لمدة <strong>10 ثوانٍ</strong> لواجهة المبنى في ضوء النهار.<br/>
+                <strong>الخطوة 2 (نخش على إيه):</strong> ادخل على موقع <strong class="en">Meshy.ai</strong> لتوليد مجسم <span class="en">3D</span> للبرجر، أو ارفع فيديو الشارع على أداة <strong class="en">Runway Gen-3</strong> / <strong class="en">Kling AI</strong> واكتب وصف فتح علبة البرجر فوق السطح.<br/>
+                <strong>الخطوة 3 (المونتاج):</strong> افتح <strong class="en">CapCut PC</strong>، أضف المؤثرات الصوتية وكود الخصم في آخر ثانيتين وانشره Reels.
+              </p>
+            </div>
+            <div class="card em">
+              <span class="pill-tag" style="background:var(--em-s);color:var(--em)">المسار الثالث • ربط التجربة بالتسييج والعمولة</span>
+              <h3>كيف تضمن تحويل المشاهدات لمبيعات فعلية؟</h3>
+              <p style="font-size:.80rem">
+                <strong>الخطوة 1 (توليد رابط التتبع):</strong> استخدم برنامج توليد <span class="en">QR</span> العمولة (في الشريحة التالية) لإنشاء رابط وكود <span class="en">QR</span> مستقل لكل قناة أو مسوّق.<br/>
+                <strong>الخطوة 2 (التسييج الجغرافي):</strong> افتح <strong class="en">Meta Ads</strong> وحدد نطاق <strong>1 كم حول شارع المشاية وحي الجامعة بالمنصورة</strong> لإعادة استهداف المارة.<br/>
+                <strong>الخطوة 3 (قياس العائد):</strong> راجع لوحة الطلبات لحساب عدد مرات المسح والطلبات الفعلية وصافي الربح (<span class="en">ROI</span>).
+              </p>
+            </div>
+          </div>`
+      },
+      {
+        num: 14, img: 23, short: "برنامج QR العمولة الحقيقي",
+        kicker: "المحور الرابع: التقنيات الحديثة والتطبيق العملي • الشريحة 14 / 17",
+        title: "برنامج توليد كود <span class='en'>QR</span> حقيقي للتسويق بالعمولة (<span class='en'>Affiliate QR App</span>)",
+        subtitle: "تطبيق عملي تفاعلي: أدخل رابط موقعك واسم المسوّق ونظام العمولة واضغط توليد للحصول على كود QR حقيقي قابل للمسح بكاميرا الموبايل والتحميل فوراً.",
+        badge: "LIVE AFFILIATE QR GENERATOR APP",
+        render: () => `
+          <div class="grid-2" style="grid-template-columns:1.15fr .85fr;align-items:start">
+            <div class="card red">
+              <span class="pill-tag">لوحة إعداد حملة التسويق بالعمولة</span>
+              <h3>⚙️ أدخل رابط موقعك وبيانات المسوّق لتوليد كود QR حقيقي</h3>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:8px 0">
+                <div>
+                  <label style="font-size:.75rem;font-weight:700;display:block;margin-bottom:3px">1. رابط الموقع أو صفحة الطلب:</label>
+                  <input type="text" id="qrUrlIn" class="ppt-input en" value="https://mansoura-grill.com/offer" />
+                </div>
+                <div>
+                  <label style="font-size:.75rem;font-weight:700;display:block;margin-bottom:3px">2. كود / اسم المسوّق بالعمولة:</label>
+                  <input type="text" id="qrAffIn" class="ppt-input en" value="MANSOURA_VIP_01" />
+                </div>
+                <div>
+                  <label style="font-size:.75rem;font-weight:700;display:block;margin-bottom:3px">3. نظام العمولة:</label>
+                  <select id="qrModelIn" class="ppt-select" onchange="runAffiliateApp()">
+                    <option value="CPS_15">عمولة 15% على كل فاتورة (CPS)</option>
+                    <option value="CPL_40">عمولة 40 ج.م على كل حجز (CPL)</option>
+                  </select>
+                </div>
+                <div>
+                  <label style="font-size:.75rem;font-weight:700;display:block;margin-bottom:3px">4. عدد الطلبات المتوقعة من الكود:</label>
+                  <input type="number" id="qrOrdersIn" class="ppt-input" value="150" min="1" oninput="runAffiliateApp()" />
+                </div>
+              </div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px">
+                <button class="action-btn" onclick="runAffiliateApp()">⚡ توليد كود QR ورابط العمولة الآن</button>
+                <button class="action-btn sec" onclick="copyAffUrl()">📋 نسخ رابط التتبع</button>
+                <button class="action-btn" style="background:var(--em)" onclick="downloadQrPng()">⬇️ تحميل صورة QR (PNG)</button>
+              </div>
+              <div class="note-box" id="affLinkBox" style="background:#fff;border-color:var(--ind);margin-top:8px"></div>
+              <div class="note-box" id="affProfitBox" style="background:var(--em-s);border-color:var(--em);margin-top:6px"></div>
+            </div>
+
+            <div class="card em" style="text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center">
+              <span class="pill-tag" style="background:var(--em-s);color:var(--em)">📱 وجّه كاميرا موبايلك الآن لتجربة المسح الحية</span>
+              <div style="background:#ffffff;padding:12px;border-radius:16px;border:2.5px solid var(--ink);box-shadow:0 10px 25px rgba(15,23,42,0.10);margin:6px 0">
+                <canvas id="liveQrCanvas" width="210" height="210"></canvas>
+              </div>
+              <div id="qrBadgeLabel" class="en" style="background:var(--red);color:#fff;padding:4px 14px;border-radius:999px;font-size:.78rem;font-weight:700;margin-top:4px">ID: MANSOURA_VIP_01</div>
+              <p style="font-size:.78rem;margin-top:6px;margin-bottom:0">هذا الكود حقيقي 100%؛ يُطبع على بطاقات المسوقين أو طاولات المطعم لتسجيل كل عملية بيع لصاحب الكود تلقائياً.</p>
+            </div>
+          </div>`
+      },
+      {
+        num: 15, img: 20, short: "تطبيقات المنصورة بالأرقام",
+        kicker: "المحور الرابع: التقنيات الحديثة والتطبيق العملي • الشريحة 15 / 17",
+        title: "تطبيقات عملية ننفذها في مدينة المنصورة (مطعم + فندق) بالتكلفة والإيرادات",
+        subtitle: "خطتان تنفيذيتان واقعيتان في أكثر مناطق المنصورة حيوية (شارع المشاية السفلية وحي الجامعة وميدان أم كلثوم) بالأرقام.",
+        badge: "MANSOURA EXECUTION • RESTAURANT & HOTEL ROI",
+        render: () => `
+          <div class="grid-2">
+            <div class="card red">
+              <span class="pill-tag">النموذج الأول • مطعم فاست كاجوال (شارع المشاية السفلية وحي الجامعة – المنصورة)</span>
+              <h3>🍔 حملة «منيو الواقع المعزز <span class="en">WebAR</span> + فيديو <span class="en">FOOH</span> المشاية»</h3>
+              <p><strong>مكان وطريقة التنفيذ:</strong> تصوير فيديو <span class="en">FOOH</span> لعلبة برجر عملاقة تفتح فوق واجهة المطعم في <strong>شارع المشاية السفلية بالمنصورة</strong>، مع وضع استندات <span class="en">QR</span> على طاولات المطعم وتوزيع بطاقات دعوة عند <strong>بوابات جامعة المنصورة (شارع جيهان)</strong> تُظهر الساندوتش مجسماً <span class="en">3D</span> على الموبايل مع كود خصم 20%.</p>
+              <table class="ppt-table" style="margin:6px 0">
+                <thead><tr><th>البند المالي والتشغيلي</th><th>القيمة بالأرقام (شهرياً)</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>تكلفة التنفيذ الكاملة</strong> (تصميم 3D + فيديو FOOH + 1,000 بطاقة QR)</td><td><strong>14,500 ج.م</strong></td></tr>
+                  <tr><td><strong>عدد الطلاب والمارة الذين مسحوا الكود</strong> (المشاية + حي الجامعة)</td><td><strong>5,500 زائر</strong></td></tr>
+                  <tr><td><strong>العملاء الفعليون داخل المطعم والدليفري</strong> (نسبة تحويل 40%)</td><td><strong>2,200 عميل</strong></td></tr>
+                  <tr><td><strong>متوسط قيمة الفاتورة (<span class="en">Average Check</span>)</strong></td><td><strong>190 ج.م</strong></td></tr>
+                  <tr><td><strong>إجمالي الإيرادات الشهرية المحققة من الحملة</strong></td><td><strong style="color:var(--em)">418,000 ج.م</strong></td></tr>
+                </tbody>
+              </table>
+              <div class="note-box" style="background:var(--em-s);border-color:var(--em);margin-top:4px">
+                <strong>العائد على الاستثمار (<span class="en">ROI</span>):</strong> <strong>2,782%</strong> + أكثر من <strong>1,500 فيديو مجاني (<span class="en">UGC</span>)</strong> يصوّره طلاب الجامعة للساندوتش المجسم.
+              </div>
+            </div>
+
+            <div class="card sky">
+              <span class="pill-tag" style="background:var(--sky-s);color:var(--sky)">النموذج الثاني • فندق سياحي / منتجع (حملة استقطاب عائلات الدلتا بالمنصورة)</span>
+              <h3>🏨 حملة «بطاقة الغرفة التفاعلية (<span class="en">AR Hotel Keycard</span>)»</h3>
+              <p><strong>مكان وطريقة التنفيذ:</strong> توزيع <strong>3,000 بطاقة تشبه مفتاح الغرفة الفندقية</strong> على العائلات ورواد الكافيهات في <strong>شارع المشاية السفلية وميدان أم كلثوم بالمنصورة</strong>؛ عند توجيه كاميرا الموبايل على البطاقة يظهر نموذج مجسم <span class="en">3D</span> لغرفة الفندق والشاطئ مع زر حجز ليلتين والثالثة مجاناً.</p>
+              <table class="ppt-table" style="margin:6px 0">
+                <thead><tr><th>البند المالي والتشغيلي</th><th>القيمة بالأرقام (شهرياً)</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>تكلفة التنفيذ الكاملة</strong> (برمجة WebAR للغرفة + طباعة 3,000 كرت)</td><td><strong>18,000 ج.م</strong></td></tr>
+                  <tr><td><strong>عدد العائلات التي فعّلت البطاقة أونلاين</strong></td><td><strong>1,250 أسرة</strong></td></tr>
+                  <tr><td><strong>الحجوزات المؤكدة (110 حجز × متوسط ليلتين)</strong></td><td><strong>220 ليلة فندقية</strong></td></tr>
+                  <tr><td><strong>متوسط سعر الليلة (<span class="en">ADR</span>) بعد العرض</strong></td><td><strong>2,500 ج.م</strong></td></tr>
+                  <tr><td><strong>إجمالي الإيرادات الفندقية المحققة</strong></td><td><strong style="color:var(--em)">550,000 ج.م</strong></td></tr>
+                </tbody>
+              </table>
+              <div class="note-box" style="background:var(--sky-s);border-color:var(--sky);margin-top:4px">
+                <strong>العائد على الاستثمار (<span class="en">ROI</span>):</strong> <strong>2,955%</strong> + رفع نسبة الإشغال الفندقي في أيام وسط الأسبوع بنسبة <strong>+21%</strong>.
+              </div>
+            </div>
+          </div>`
+      },
+      {
+        num: 16, img: 24, short: "تحليل SWOT وخطة العلاج",
+        kicker: "المحور الخامس: التقييم الاستراتيجي والتوثيق العلمي • الشريحة 16 / 17",
+        title: "التحليل الرباعي (<span class='en'>SWOT Analysis</span>): استغلال القوة وإصلاح الضعف",
+        subtitle: "تشريح علمي للتسويق الغوريلا، متبوعاً باستراتيجيات عملية لتعظيم نقاط القوة ومعالجة نقاط الضعف والتهديدات.",
+        badge: "PART 05 • SWOT MATRIX & ACTION PLAN",
+        render: () => `
+          <div class="tab-row">
+            <button class="tab-btn active" onclick="pickSwot('matrix',this)">1. المصفوفة الرباعية الكاملة (<span class="en">SWOT Matrix</span>)</button>
+            <button class="tab-btn" onclick="pickSwot('strengths',this)">2. كيف نستغل نقاط القوة؟</button>
+            <button class="tab-btn" onclick="pickSwot('weaknesses',this)">3. كيف نُصلح نقاط الضعف؟</button>
+          </div>
+          <div id="swotArea">${renderSwotPane('matrix')}</div>`
+      },
+      {
+        num: 17, img: 25, short: "المخاطر والقاموس والمراجع",
+        kicker: "المحور الخامس: التقييم الاستراتيجي والتوثيق العلمي • الشريحة 17 / 17",
+        title: "المخاطر القانونية وحادثة بوسطن (2007) + القاموس الكامل (28) + المراجع (16)",
+        subtitle: "تنقل بين التبويبات الثلاثة لاستعراض الحدود القانونية، والقاموس المشروح بالتفصيل، وقائمة المراجع الأكاديمية.",
+        badge: "LEGAL RISKS • 28 GLOSSARY TERMS • 16 REFERENCES",
+        render: () => `
+          <div class="tab-row">
+            <button class="tab-btn active" onclick="pickEndTab('risks',this)">1. المخاطر وحادثة بوسطن (2007)</button>
+            <button class="tab-btn" onclick="pickEndTab('glossary',this)">2. قاموس المصطلحات الكامل (28 مصطلحاً)</button>
+            <button class="tab-btn" onclick="pickEndTab('refs',this)">3. المراجع الأكاديمية الكاملة (16 مرجعاً)</button>
+          </div>
+          <div id="endArea">${renderEndPane('risks')}</div>`
+      }
+    ];
+
+    /* =========================================================================
+       5. DYNAMIC PANES & INTERACTIVE AFFILIATE QR APP LOGIC
+       ========================================================================= */
+    const erasList = [
+      { p: "1984 – 1998", loc: "الولايات المتحدة وأوروبا", t: "عصر الشارع، الملصقات الورقية، والأثاث الحضري", d: "النزول الميداني المباشر عبر الملصقات غير التقليدية، الاستنسل على الأرصفة، توزيع العينات في محطات المترو، واستغلال المقاعد وصناديق الهاتف العمومية.", n: "بيع أكثر من 21 مليون نسخة من كتب ليفينسون وتأسيس وكالات إعلانات الشوارع." },
+      { p: "1999", loc: "ماريلاند، الولايات المتحدة الأمريكية", t: "نقطة التحول الرقمية المبكرة: فيلم <span class='en'>The Blair Witch Project</span>", d: "أول دمج تاريخي بين التسويق الخفي والإنترنت المبكر؛ إطلاق موقع ومنتديات توحي بأن أحداث الفيلم حقيقية مع توزيع منشورات مفقودين في المهرجانات.", n: "بميزانية إنتاج وترويج 35,000 دولار فقط، حقق الفيلم إيرادات عالمية بلغت 248.6 مليون دولار أمريكي." },
+      { p: "2000 – 2009", loc: "لندن، نيويورك، وزيورخ", t: "التسويق المحيطي، التجمعات المفاجئة، وانطلاق يوتيوب (2005)", d: "بفضل يوتيوب لم تعد الحملة محصورة بمن يشاهدها في الشارع، بل أصبحت تُصوَّر وتنتشر عالمياً، فازدهرت التجمعات المفاجئة (<span class='en'>Flash Mobs</span>) والمجسمات العملاقة.", n: "حملة <span class='en'>Kwik-E-Mart</span> (يوليو 2007: +30% مبيعات) وتجمع <span class='en'>T-Mobile</span> في لندن (يناير 2009: 42 مليون مشاهدة و+52% مبيعات)." },
+      { p: "2010 – 2019", loc: "باريس، سيول، وزيورخ", t: "التسويق التجريبي التفاعلي، الوسوم، ومحتوى الجمهور (<span class='en'>UGC</span>)", d: "تصميم التجربة في الشارع كمنصة تصوير تفاعلية تدفع الزائر لتصوير نفسه ونشر الفيديو تحت وسم الحملة.", n: "شقة <span class='en'>IKEA</span> داخل مترو باريس (مارس 2014: 180 ألف زائر و+22% زيارات للفروع) ومتجر <span class='en'>Tesco</span> في مترو سيول (+130% مبيعات)." },
+      { p: "2020 – 2026", loc: "لندن، باريس، دبي، والمنصات الرقمية", t: "التكامل الهجين (<span class='en'>Phygital</span>)، الواقع المعزز <span class='en'>WebAR</span>، وفيديوهات <span class='en'>FOOH</span>", d: "اندماج الواقع المادي بالافتراضي عبر فيديوهات الجرافيك ثلاثي الأبعاد (<span class='en'>CGI</span>) في الشوارع الحقيقية، والواقع المعزز عبر المتصفح دون تطبيقات.", n: "رموش <span class='en'>Maybelline</span> في لندن (يوليو 2023: 50 مليون مشاهدة و+42% مبيعات) وحقائب <span class='en'>Jacquemus</span> في باريس (أبريل 2023)." }
+    ];
+
+    function renderEraCard(i) { const e = erasList[i]; return `<div class="card red"><div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px"><span class="pill-tag">${e.p}</span><span class="pill-tag" style="background:var(--sky-s);color:var(--sky)">📍 ${e.loc}</span></div><h3>${e.t}</h3><p>${e.d}</p><div class="note-box"><strong>الأرقام والإيرادات الموثقة:</strong> ${e.n}</div></div>`; }
+    function pickEra(i, btn) { btn.parentElement.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active")); btn.classList.add("active"); document.getElementById("eraBox").innerHTML = renderEraCard(i); }
+    function updateSim(v) { document.getElementById("simVal").textContent = "نسبة التحوّل: " + v + "%"; document.getElementById("simGuer").style.opacity = .5 + (v / 100) * .5; document.getElementById("simTrad").style.opacity = 1 - (v / 100) * .55; }
+    function setXray(id, txt) { const el = document.getElementById(id); if (el) el.innerHTML = "<strong>🔍 التوثيق والتحليل:</strong> " + txt; }
+
+    /* LIVE AFFILIATE QR GENERATOR FUNCTIONS */
+    let currentGeneratedUrl = "";
+    function runAffiliateApp() {
+      const urlIn = document.getElementById("qrUrlIn");
+      if (!urlIn) return;
+      let base = (urlIn.value || "https://mansoura-grill.com/offer").trim();
+      if (!/^https?:\/\//i.test(base)) base = "https://" + base;
+      const aff = (document.getElementById("qrAffIn").value || "MANSOURA_VIP_01").trim().replace(/\s+/g, "_").toUpperCase();
+      const model = document.getElementById("qrModelIn").value;
+      const orders = Math.max(1, parseInt(document.getElementById("qrOrdersIn").value || "150", 10));
+
+      const sep = base.includes("?") ? "&" : "?";
+      currentGeneratedUrl = `${base}${sep}utm_source=guerrilla_qr&aff_id=${encodeURIComponent(aff)}&plan=${model}`;
+
+      const canvas = document.getElementById("liveQrCanvas");
+      QRGen.drawToCanvas(canvas, currentGeneratedUrl);
+
+      document.getElementById("qrBadgeLabel").textContent = "ID: " + aff;
+      document.getElementById("affLinkBox").innerHTML = `<strong>رابط التتبع المدمج داخل الـ QR:</strong><br/><span class="en" style="color:var(--ind);font-size:.77rem;word-break:break-all">${currentGeneratedUrl}</span>`;
+
+      const avgOrder = 190;
+      const totalSales = orders * avgOrder;
+      const comm = model === "CPS_15" ? Math.round(totalSales * 0.15) : (orders * 40);
+      document.getElementById("affProfitBox").innerHTML = `<strong>حاسبة الأرباح الفورية (${orders} طلب من الكود):</strong><br/>إجمالي مبيعات المطعم/الفندق: <strong>${totalSales.toLocaleString()} ج.م</strong> • صافي عمولة المسوّق: <strong style="color:var(--em)">${comm.toLocaleString()} ج.م</strong>`;
+    }
+
+    function copyAffUrl() {
+      if (!currentGeneratedUrl) runAffiliateApp();
+      navigator.clipboard?.writeText(currentGeneratedUrl).catch(() => {});
+      const box = document.getElementById("affLinkBox");
+      if (box) box.innerHTML = `<strong style="color:var(--em)">✓ تم نسخ الرابط بنجاح!</strong><br/><span class="en" style="color:var(--ind);font-size:.77rem;word-break:break-all">${currentGeneratedUrl}</span>`;
+    }
+
+    function downloadQrPng() {
+      const canvas = document.getElementById("liveQrCanvas");
+      if (!canvas) return;
+      const aff = (document.getElementById("qrAffIn")?.value || "QR_AFFILIATE").trim();
+      const a = document.createElement("a");
+      a.download = `QR-${aff}.png`;
+      a.href = canvas.toDataURL("image/png");
+      a.click();
+    }
+
+    function renderSwotPane(mode) {
+      if (mode === "matrix") return `<div class="grid-2"><div class="card em"><span class="pill-tag en" style="background:var(--em-s);color:var(--em)">S • Strengths</span><h3>نقاط القوة الجوهرية</h3><p style="margin:0">• <strong>تكلفة منخفضة وعائد مرتفع (<span class="en">ROI</span>):</strong> استثمار الخيال والتكنولوجيا بدلاً من الميزانيات الضخمة.<br/>• <strong>كسر العمى الإعلاني:</strong> المفاجأة تجبر الدماغ على التركيز.<br/>• <strong>انتشار فيروسي مجاني:</strong> الجمهور يصور وينشر التجربة طوعاً.<br/>• <strong>مرونة وسرعة فائقة:</strong> إطلاق وتعديل الحملات خلال ساعات.</p></div><div class="card red"><span class="pill-tag en">W • Weaknesses</span><h3>نقاط الضعف والتحديات</h3><p style="margin:0">• <strong>صعوبة القياس في الشارع الصرف:</strong> صعوبة تتبع المبيعات دون ربط رقمي.<br/>• <strong>قِصر عمر المفاجأة:</strong> تفقد الفكرة عنصر الصدمة بمجرد اعتياد الناس عليها.<br/>• <strong>الاعتماد الكلي على جودة الفكرة:</strong> الفكرة الضعيفة تفشل دون ميزانية تغطيها.<br/>• <strong>احتمال نسيان اسم العلامة:</strong> إذا لم تُطبَّق قاعدة الـ 3 ثوانٍ بوضوح.</p></div><div class="card sky"><span class="pill-tag en" style="background:var(--sky-s);color:var(--sky)">O • Opportunities</span><h3>الفرص المتاحة في السوق</h3><p style="margin:0">• <strong>انتشار الهواتف ومنصات الفيديو القصير:</strong> كل مارٍّ يحمل كاميرا قادرة على صناعة تريند.<br/>• <strong>تقنيات الواقع المعزز (<span class="en">WebAR</span>) والجرافيك (<span class="en">FOOH</span>):</strong> تنفيذ أفكار مدهشة بتكلفة بسيطة.<br/>• <strong>التكامل مع التسويق بالعمولة:</strong> ربط الشارع بعمولات قابلة للقياس عبر <span class="en">QR</span>.</p></div><div class="card amb"><span class="pill-tag en" style="background:var(--amb-s);color:var(--amb)">T • Threats</span><h3>التهديدات والمخاطر الخارجية</h3><p style="margin:0">• <strong>القيود القانونية والتصاريح البلدية:</strong> إزالة المجسمات أو فرض غرامات دون موافقات مسبقة.<br/>• <strong>خطر إثارة الذعر الأمني:</strong> كما حدث في كارثة بوسطن عام 2007.<br/>• <strong>التقليد السريع من المنافسين:</strong> استنساخ الفكرة من شركات أكبر.</p></div></div>`;
+      if (mode === "strengths") return `<div class="grid-2"><div class="note-box" style="background:#fff;border-color:var(--em)"><strong>1. استغلال التكلفة المنخفضة ← التجارب السريعة (<span class="en">A/B Testing</span>):</strong><br/>تقسيم الميزانية الصغيرة إلى 3 تجارب رقمية/ميدانية مصغرة، ثم ضخ ميزانية الترويج في التجربة الأعلى تفاعلاً.</div><div class="note-box" style="background:#fff;border-color:var(--em)"><strong>2. استغلال كسر العمى الإعلاني ← دعوة فورية للفعل (<span class="en">CTA</span>):</strong><br/>في اللحظة الذهبية التي يتوقف فيها عقل المستهلك مندهشاً، نضع أمامه خطوة بسيطة ومغرية (مسح رمز QR للحصول على خصم فوري).</div><div class="note-box" style="background:#fff;border-color:var(--em)"><strong>3. استغلال القابلية للانتشار ← هندسة زاوية التصوير (<span class="en">Selfie-Ready</span>):</strong><br/>تصميم تجربة الواقع المعزز بإضاءة ممتازة وزاوية يظهر فيها شعار المطعم أو الفندق في خلفية كل فيديو يلتقطه الزبون.</div><div class="note-box" style="background:#fff;border-color:var(--em)"><strong>4. استغلال المرونة والسرعة ← ركوب الأحداث اللحظية (<span class="en">Newsjacking</span>):</strong><br/>تنفيذ فكرة غوريلا خلال 24 ساعة فقط بالتزامن مع موسم الدراسة أو المباريات الكبرى في المنصورة.</div></div>`;
+      return `<div class="grid-2"><div class="note-box" style="background:#fff"><strong>علاج الضعف 1 (صعوبة القياس) ← الربط بأكواد <span class="en">QR</span> والتتبع (<span class="en">UTM</span>):</strong><br/>عدم إطلاق أي حملة صامتة؛ ربط كل بطاقة أو مجسم برمز QR وكود خصم حصري لقياس المبيعات الناتجة بدقة 100%.</div><div class="note-box" style="background:#fff"><strong>علاج الضعف 2 (قِصر عمر المفاجأة) ← التوثيق وإعادة التدوير:</strong><br/>تصوير ردود فعل الجمهور الحقيقية أثناء تجربة الواقع المعزز، ثم تحويل الفيديو إلى إعلانات ممولة مستمرة لشهور.</div><div class="note-box" style="background:#fff"><strong>علاج الضعف 3 (نسيان اسم العلامة) ← دمج المنتج في صلب الفكرة:</strong><br/>جعل الوجبة نفسها أو غرفة الفندق هي بطل تجربة الـ 3D بحيث يستحيل تذكّر الفكرة دون العلامة.</div><div class="note-box" style="background:#fff"><strong>علاج الضعف 4 (المخاطر القانونية) ← البدائل الرقمية والنظيفة:</strong><br/>استخدام الواقع المعزز عبر الهاتف <span class="en">WebAR</span> وفيديوهات <span class="en">FOOH</span> الرقمية دون إشغال الأرصفة أو مخالفة القوانين.</div></div>`;
+    }
+    function pickSwot(mode, btn) { btn.parentElement.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active")); btn.classList.add("active"); document.getElementById("swotArea").innerHTML = renderSwotPane(mode); }
+
+    function renderEndPane(tab) {
+      if (tab === "risks") return `<div class="grid-2"><div class="card red"><span class="pill-tag">كارثة موثقة • 31 يناير 2007 • بوسطن، أمريكا</span><h3>حادثة حملة <span class="en">Aqua Teen Hunger Force</span> في بوسطن</h3><p>زرع فريق تسويق شبكة <strong class="en">Turner Broadcasting</strong> 38 لوحة إلكترونية مضيئة بأسلاك مكشوفة أسفل الجسور وفي محطات مترو بوسطن دون إخطار السلطات.</p><div class="note-box"><strong>النتيجة الكارثية بالأرقام:</strong> ظن السكان والشرطة أنها قنابل بدائية الصنع، فأُغلقت الجسور ومحطات المترو واستُدعيت فرق المتفجرات، ودفعَت الشركة تعويضاً بقيمة <strong>2 مليون دولار أمريكي</strong> لمدينة بوسطن واستقال رئيس الشبكة!</div></div><div class="card sky" style="padding:12px">${renderFigure(25, "compact")}<span class="pill-tag" style="background:var(--sky-s);color:var(--sky)">الخطوط الحمراء القانونية</span><h3>قواعد الأمان القانوني والأخلاقي</h3><p style="margin:0;font-size:.81rem"><strong>1. عدم إثارة الذعر الأمني:</strong> تجنب أي مجسمات غامضة أو أجهزة متروكة.<br/><strong>2. التصاريح البلدية:</strong> الحصول على الموافقات الرسمية عند استخدام الشوارع.<br/><strong>3. حماية الممتلكات والبيئة:</strong> عدم تشويه الجدران بالدهانات الدائمة.<br/><strong>4. احترام الخصوصية والشفافية:</strong> عدم تصوير الأفراد دون موافقة.</p></div></div>`;
+      if (tab === "glossary") return `<div style="margin-bottom:8px"><input type="text" id="gSearch" class="ppt-input" style="max-width:340px" placeholder="🔍 ابحث في الـ 28 مصطلحاً..." oninput="filterG()" /></div><div class="grid-2" id="gList" style="max-height:335px;overflow-y:auto;padding-left:4px">${glossaryData.map(g => `<div class="card red" style="padding:10px 12px"><span class="pill-tag en">${g.en}</span><h3 style="font-size:.90rem">${g.ar}</h3><p style="font-size:.79rem;margin-bottom:4px"><strong>التعريف:</strong> ${g.def}</p><div class="note-box" style="padding:5px 8px;font-size:.77rem;margin-top:4px">${g.mean}</div></div>`).join("")}</div>`;
+      return `<div style="max-height:375px;overflow-y:auto;display:flex;flex-direction:column;gap:5px;padding-left:4px">
+        <div class="note-box" style="margin:0;background:#fff"><strong>1.</strong> <span class="en">Jay Conrad Levinson (1984) — <em>Guerrilla Marketing: Secrets for Making Big Profits from Your Small Business</em>, Houghton Mifflin, Boston.</span></div>
+        <div class="note-box" style="margin:0;background:#fff"><strong>2.</strong> <span class="en">Jay Conrad Levinson &amp; Seth Godin (1994) — <em>The Guerrilla Marketing Handbook</em>, Houghton Mifflin, Boston.</span></div>
+        <div class="note-box" style="margin:0;background:#fff"><strong>3.</strong> <span class="en">Jay Conrad Levinson &amp; Paul R. J. Hanley (2005) — <em>The Guerrilla Marketing Revolution</em>, Piatkus Books, London.</span></div>
+        <div class="note-box" style="margin:0;background:#fff"><strong>4.</strong> <span class="en">Adam Morgan (1999) — <em>Eating the Big Fish: How Challenger Brands Can Compete Against Brand Leaders</em>, John Wiley &amp; Sons.</span></div>
+        <div class="note-box" style="margin:0;background:#fff"><strong>5.</strong> <span class="en">Jonah Berger (2013) — <em>Contagious: Why Things Catch On</em>, Simon &amp; Schuster, New York.</span></div>
+        <div class="note-box" style="margin:0;background:#fff"><strong>6.</strong> <span class="en">Emanuel Rosen (2000) — <em>The Anatomy of Buzz: How to Create Word-of-Mouth Marketing</em>, Doubleday, New York.</span></div>
+        <div class="note-box" style="margin:0;background:#fff"><strong>7.</strong> <span class="en">Katharina Hutter &amp; Stefan Hoffmann (2011) — "Guerrilla Marketing: The Nature of the Concept", <em>Asian Journal of Marketing</em>, 5(2), 39–54.</span></div>
+        <div class="note-box" style="margin:0;background:#fff"><strong>8.</strong> <span class="en">Katharina Hutter &amp; Stefan Hoffmann (2014) — "Surprise, Surprise. Ambient Media as Promotion Tool", <em>Journal of Retailing</em>, 90(1), 93–110.</span></div>
+        <div class="note-box" style="margin:0;background:#fff"><strong>9.</strong> <span class="en">Sandra Luxton &amp; Lachlan Drummond (2000) — "What is this thing called 'Ambient Advertising'?", <em>ANZMAC Proceedings</em>, 734–738.</span></div>
+        <div class="note-box" style="margin:0;background:#fff"><strong>10.</strong> <span class="en">Bettina Cornwell &amp; Isabelle Maignan (1998) — "An International Review of Sponsorship Research", <em>Journal of Advertising</em>, 27(1), 1–21.</span></div>
+        <div class="note-box" style="margin:0;background:#fff"><strong>11.</strong> <span class="en">Philip Kotler, Hermawan Kartajaya, &amp; Iwan Setiawan (2017) — <em>Marketing 4.0: Moving from Traditional to Digital</em>, Wiley.</span></div>
+        <div class="note-box" style="margin:0;background:#fff"><strong>12.</strong> <span class="en">Philip Kotler, Hermawan Kartajaya, &amp; Iwan Setiawan (2021) — <em>Marketing 5.0: Technology for Humanity</em>, Wiley.</span></div>
+        <div class="note-box" style="margin:0;background:#fff"><strong>13.</strong> <span class="en">Evgeniy Prussakov (2007) — <em>A Practical Guide to Affiliate Marketing</em>, Llumina Press, Austin, TX.</span></div>
+        <div class="note-box" style="margin:0;background:#fff"><strong>14.</strong> <span class="en">Shawn Collins (2008) — <em>Successful Affiliate Marketing for Merchants</em>, Que Publishing / Pearson Education.</span></div>
+        <div class="note-box" style="margin:0;background:#fff"><strong>15.</strong> <span class="en">Charles Esdaile (2004) — <em>Fighting Napoleon: Guerrillas, Bandits and Adventurers in Spain, 1808–1814</em>, Yale University Press.</span></div>
+        <div class="note-box" style="margin:0;background:#fff"><strong>16.</strong> <span class="en">Carl von Clausewitz (1832) — <em>On War (Vom Kriege)</em>, Ferdinand Dümmler, Berlin.</span></div>
+      </div>`;
+    }
+    function pickEndTab(tab, btn) { btn.parentElement.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active")); btn.classList.add("active"); document.getElementById("endArea").innerHTML = renderEndPane(tab); }
+    function filterG() {
+      const q = (document.getElementById("gSearch")?.value || "").toLowerCase().trim();
+      const filtered = glossaryData.filter(g => g.en.toLowerCase().includes(q) || g.ar.includes(q) || g.def.includes(q) || g.mean.includes(q));
+      document.getElementById("gList").innerHTML = filtered.map(g => `<div class="card red" style="padding:10px 12px"><span class="pill-tag en">${g.en}</span><h3 style="font-size:.90rem">${g.ar}</h3><p style="font-size:.79rem;margin-bottom:4px"><strong>التعريف:</strong> ${g.def}</p><div class="note-box" style="padding:5px 8px;font-size:.77rem;margin-top:4px">${g.mean}</div></div>`).join("");
+    }
+
+    /* =========================================================================
+       6. PRESENTATION ENGINE & FULLSCREEN VIDEO OPENER CONTROLS
+       ========================================================================= */
+    let currentSlide = 0;
+
+    function startOpenerVideo() {
+      const v = document.getElementById("fullscreenIntroVideo");
+      const btn = document.getElementById("unmuteOpenerBtn");
+      if (!v) return;
+      v.currentTime = 0;
+      v.muted = false;
+      const playPromise = v.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          if (btn) btn.textContent = "🔇 كتم الصوت";
+        }).catch(() => {
+          v.muted = true;
+          v.play().catch(() => {});
+          if (btn) btn.textContent = "🔊 تشغيل الصوت";
+        });
+      }
+    }
+
+    function toggleOpenerAudio() {
+      const v = document.getElementById("fullscreenIntroVideo");
+      const btn = document.getElementById("unmuteOpenerBtn");
+      if (!v) return;
+      v.muted = !v.muted;
+      if (v.paused) v.play().catch(() => {});
+      if (btn) btn.textContent = v.muted ? "🔊 تشغيل الصوت" : "🔇 كتم الصوت";
+    }
+
+    function finishIntroVideo() {
+      const stage = document.getElementById("videoOpenerStage");
+      const v = document.getElementById("fullscreenIntroVideo");
+      if (v) v.pause();
+      if (stage) stage.classList.add("hidden");
+    }
+
+    function replayOpenerVideo() {
+      const stage = document.getElementById("videoOpenerStage");
+      const splash = document.getElementById("introSplash");
+      if (splash) splash.classList.remove("hidden");
+      if (stage) stage.classList.remove("hidden");
+      startOpenerVideo();
+    }
+
+    function enterPresentation() {
+      finishIntroVideo();
+      const splash = document.getElementById("introSplash");
+      if (splash) splash.classList.add("hidden");
+      renderSlide(0);
+    }
+
+    function renderSlide(idx) {
+      if (idx < 0) idx = 0;
+      if (idx >= slides.length) idx = slides.length - 1;
+      currentSlide = idx;
+      const s = slides[idx];
+      const wrap = document.getElementById("slideContentWrap");
+      wrap.classList.remove("slide-enter");
+      void wrap.offsetWidth;
+      wrap.classList.add("slide-enter");
+      wrap.innerHTML = `
+        <header class="s-header">
+          <div>
+            <div class="s-kicker">${s.kicker}</div>
+            <h1 class="s-title">${s.title}</h1>
+            <p class="s-subtitle">${s.subtitle}</p>
+          </div>
+          <div class="s-badge-en">${s.badge}</div>
+        </header>
+        <div class="s-body">${s.render()}</div>
+      `;
+      document.getElementById("dockCounter").textContent = `${pad2(idx + 1)} / ${pad2(slides.length)}`;
+      document.getElementById("pptBar").style.width = `${((idx + 1) / slides.length) * 100}%`;
+
+      if (s.num === 14) {
+        setTimeout(runAffiliateApp, 30);
+      }
+    }
+
+    function nextSlide() { if (currentSlide < slides.length - 1) renderSlide(currentSlide + 1); }
+    function prevSlide() { if (currentSlide > 0) renderSlide(currentSlide - 1); }
+
+    function toggleSorter() {
+      const modal = document.getElementById("sorterModal");
+      const open = modal.classList.toggle("open");
+      if (open) {
+        document.getElementById("sorterGrid").innerHTML = slides.map((s, i) => `
+          <div class="sorter-card ${i === currentSlide ? 'active' : ''}" onclick="renderSlide(${i});toggleSorter()">
+            <div class="sorter-thumb"><img src="${getBaseName(s.img)}.jpg" data-try-idx="0" onerror="handleLocalImgError(this, ${s.img})" alt="" /></div>
+            <div style="font-family:var(--fh);font-size:.77rem;font-weight:700;color:var(--red)">${pad2(s.num)} • ${s.short}</div>
+          </div>
+        `).join("");
+      }
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen?.().catch(() => {});
+      else document.exitFullscreen?.().catch(() => {});
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (["INPUT", "SELECT", "TEXTAREA"].includes(document.activeElement?.tagName)) return;
+      if (e.key === "ArrowLeft") nextSlide();
+      else if (e.key === "ArrowRight") prevSlide();
+      else if (e.key === "Escape") document.getElementById("sorterModal").classList.remove("open");
+    });
+
+    window.addEventListener("DOMContentLoaded", () => {
+      renderSlide(0);
+      startOpenerVideo();
+    });
+  </script>
+</body>
+</html>
